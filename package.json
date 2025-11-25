@@ -1,0 +1,17 @@
+{
+  "name": "fed25-js1-uppgift-2-fed25-js1-inlamningsuppgift-2-grupp-2",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "bootstrap": "^5.3.8",
+    "sass": "1.77.6",
+    "typescript": "~5.9.3",
+    "vite": "^7.2.4"
+  }
+}
