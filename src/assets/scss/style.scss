@@ -4,14 +4,35 @@ $primary: #A5405E;
 
 .navbar {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     padding: 0rem;
 }
 
 .navbar-logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     height: 150px;
     width: auto;
+}
+
+.search-nav-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.search-nav-wrapper form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+}
+
+#search-bar {
+  width: 75%;
 }
 
 .btn-primary {
@@ -34,4 +55,23 @@ $primary: #A5405E;
 
 .btn-primary:hover::after {
   width: 100%;
+}
+
+@media (min-width: 768px) {
+  .search-nav-wrapper {
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    width: auto;
+  }
+
+  .search-nav-wrapper form {
+    flex-direction: row;
+    align-items: center;
+    width: auto;
+  }
+
+  #search-bar {
+    width: auto;
+  }
 }
