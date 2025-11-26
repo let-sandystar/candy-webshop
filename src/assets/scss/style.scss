@@ -2,6 +2,10 @@ $dark: #A5405E;
 $primary: #E9A559;
 @import "bootstrap/scss/bootstrap";
 
+h3 {
+    color: white;
+}
+
 .navbar {
     display: flex;
     flex-wrap: wrap;
