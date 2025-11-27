@@ -1,5 +1,5 @@
 import "./assets/scss/style.scss";
-import { getAllProducts } from "./services/API"
+import { getAllProducts } from "./services/allproducts"
 
 getAllProducts()
   .then(products => console.log(products))
