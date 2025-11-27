@@ -16,15 +16,15 @@ const products = [
   },
 ];
 
-products.forEach(product => {
+products.forEach(getAllProducts => {
   const card = document.createElement("div");
   card.classList.add("card");
 
   card.innerHTML = `
-    <img class="card-img-top" src="${product.image}" alt="${product.title}">
+    <img class="card-img-top" src="${products.image}" alt="${products.title}">
     <div class="card-body">
-      <h5 class="card-title">${product.title}</h5>
-      <p class="card-text">${product.description}</p>
+      <h5 class="card-title">${products.title}</h5>
+      <p class="card-text">${products.description}</p>
     </div>
     <div class="card-footer">
       <button class="btn btn-primary">Köp</button>
