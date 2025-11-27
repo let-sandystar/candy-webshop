@@ -1,6 +1,7 @@
 @import "bootstrap/scss/bootstrap";
 
 .card {
+    width: 18rem;
     border: none;
     border-radius: 12px;
     overflow: hidden;
@@ -31,6 +32,16 @@
       color: #555;
       font-size: 0.95rem;
     }
+
+    .card-footer {
+        display: flex;
+        gap: 10px;
+    }
+
+    .btn {
+        flex: 1;
+    }
+
   
     .btn-primary {
       background-color: pink;
