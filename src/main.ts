@@ -3,10 +3,6 @@ import { getAllProducts } from "./services/allproducts"
 
 const container = document.querySelector<HTMLDivElement>("#product-list");
 
-getAllProducts()
-  .then(products => console.log(products))
-  .catch(err => console.error(err));
-
 
 const products = [
   {
