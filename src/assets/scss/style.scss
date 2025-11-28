@@ -1,6 +1,10 @@
 $dark: #A5405E;
 $primary: #E9A559;
 @import "bootstrap/scss/bootstrap";
+body {
+  background: #A5405E;
+  color: white;
+}
 
 h3 {
     color: white;
@@ -68,6 +72,11 @@ h3 {
     padding: 0;
     box-sizing: border-box;
 }
+.checkoutForm label {
+  display: block; 
+  margin-bottom: 5px;
+  font-weight: 600;
+}
 
 .footer {
     margin-top: 10px;
@@ -125,7 +134,8 @@ white-space: nowrap;
     flex-direction: column;
 }
 
-.footer input {
+.footer input,
+.checkoutForm input {
     padding: 10px; 
     margin-bottom: 10px;
     border-radius: 5px;
@@ -140,16 +150,19 @@ white-space: nowrap;
     color:white; 
 }
 
-.footer input:hover {
+.footer input:hover,
+.checkoutForm input:hover {
     border: solid 2px #E9A559;
 }
 
-.footer input:focus {
+.footer input:focus,
+.checkoutForm input:focus {
     outline: 2px solid #E9A559;
     outline-offset: 2px;
 }
 
-.footer button {
+.footer button,
+.checkoutForm button {
     width: 90%; 
     max-width: 300px; 
     padding: 10px; 
@@ -159,9 +172,11 @@ white-space: nowrap;
     letter-spacing: 1px; 
     color: white;
     transition: transform 0.2s; 
+    margin-top:5px;
 }
 
-.footer button:hover {
+.footer button:hover,
+.checkoutForm button:hover {
     transform: scale(1.05);
     border: solid 2px #E9A559;
 }
