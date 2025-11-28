@@ -8,6 +8,11 @@ export interface Candy {
     stock_status: string;
 }
 
+export interface ProductImages {
+    thumbnail: string;
+    large: string;
+}
+
 export interface everyProduct {
     status: string;
     data: Candy[];
