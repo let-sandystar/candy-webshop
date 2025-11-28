@@ -20,23 +20,22 @@ h3 {
 }
 
 .navbar-logo {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 120px;
-    width: auto;
+    max-width: 200px;
+    display: block; 
+    margin: 0px auto 10px; 
 }
 
 .search-nav-wrapper {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
-  width: 100%;
+  gap: 0.5rem;
+  width: auto;
 }
 
 .search-nav-wrapper form {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   width: 100%;
   align-items: center;
 }
@@ -135,7 +134,8 @@ white-space: nowrap;
 }
 
 .footer input,
-.checkoutForm input {
+.checkoutForm input,
+.search-input {
     padding: 10px; 
     margin-bottom: 10px;
     border-radius: 5px;
@@ -146,17 +146,20 @@ white-space: nowrap;
     max-width: 300px; 
 }
 
-.footer input::placeholder {
+.footer input::placeholder,
+.search-input::placeholder {
     color:white; 
 }
 
 .footer input:hover,
-.checkoutForm input:hover {
+.checkoutForm input:hover,
+.search-input:hover {
     border: solid 2px #E9A559;
 }
 
 .footer input:focus,
-.checkoutForm input:focus {
+.checkoutForm input:focus,
+.search-input:focus {
     outline: 2px solid #E9A559;
     outline-offset: 2px;
 }
@@ -172,7 +175,7 @@ white-space: nowrap;
     letter-spacing: 1px; 
     color: white;
     transition: transform 0.2s; 
-    margin-top:5px;
+    margin:10px 0px 20px 0px;
 }
 
 .footer button:hover,
@@ -274,13 +277,6 @@ white-space: nowrap;
       align-items: center;
       width: auto;
       margin-left: auto;
-    }
-  
-    .search-nav-wrapper form {
-      flex-direction: row;
-      align-items: center;
-      width: auto;
-      gap: 0.5rem;
     }
   
     #search-bar {
