@@ -1,11 +1,16 @@
 export interface Candy {
     id: number;
-    images: string;
+    images: ProductImages;
     name: string;
     on_sale: boolean;
     price: number;
     stock_quantity: number;
     stock_status: string;
+}
+
+export interface ProductImages {
+    thumbnail: string;
+    large: string;
 }
 
 export interface everyProduct {
