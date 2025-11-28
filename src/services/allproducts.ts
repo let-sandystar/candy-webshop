@@ -1,6 +1,6 @@
 import type { everyProduct } from "./candy.types";
 
-const BASE = import.meta.env.VITE_API_BASE_URL;
+export const BASE = import.meta.env.VITE_API_BASE_URL;
 const PRODUCTS_URL = `${BASE}api/v2/products`;
 
 export const getAllProducts = async () => {

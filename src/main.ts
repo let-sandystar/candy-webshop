@@ -1,4 +1,9 @@
 import "./assets/scss/style.scss";
+<<<<<<< HEAD
+=======
+import { getAllProducts } from "./services/allproducts"
+import { getSingleProduct } from "./services/singleproduct";
+>>>>>>> dev
 
 const container = document.querySelector<HTMLDivElement>("#product-list");
 
@@ -28,4 +33,15 @@ products.forEach(product => {
   `;
 
   container?.appendChild(card);
+<<<<<<< HEAD
 });
+=======
+});
+
+const productOverview = async () => {
+  const product = await getSingleProduct(5216);
+  console.log(product.data.name, product.data.price);
+};
+
+productOverview();
+>>>>>>> dev
