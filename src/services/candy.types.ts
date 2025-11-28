@@ -1,4 +1,4 @@
-interface candies {
+export interface Candy {
     id: number;
     images: string;
     name: string;
@@ -10,5 +10,10 @@ interface candies {
 
 export interface everyProduct {
     status: string;
-    data: candies[];
+    data: Candy[];
+}
+
+export interface SingleProductResponse {
+    status: string;
+    data: Candy;
 }
