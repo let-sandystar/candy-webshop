@@ -1,42 +1,33 @@
 import "./assets/scss/style.scss";
-<<<<<<< HEAD
-=======
 import { getAllProducts } from "./services/allproducts"
 import { getSingleProduct } from "./services/singleproduct";
->>>>>>> dev
 
 const container = document.querySelector<HTMLDivElement>("#product-list");
 
+getAllProducts()
+  .then(products => {
+    products.data.forEach(product => {
 
-const products = [
-  {
-    image: "bild1.jpg",
-    title: "Produkt 1",
-    description: "Beskrivning 1"
-  },
-];
+      const card = document.createElement("div");
+      card.classList.add("card");
 
-products.forEach(product => {
-  const card = document.createElement("div");
-  card.classList.add("card");
+      card.innerHTML = `
+        <img class="card-img-top" src="${product.images[0]}" alt="${product.name}">
+        <div class="card-body">
+          <h5 class="card-title">${product.name}</h5>
+        </div>
+        <div class="card-footer">
+          <button class="btn btn-primary">Köp</button>
+          <button class="btn btn-secondary">Mer info</button>
+        </div>
+      `;
 
-  card.innerHTML = `
-    <img class="card-img-top" src="${product.image}" alt="${product.title}">
-    <div class="card-body">
-      <h5 class="card-title">${product.title}</h5>
-      <p class="card-text">${product.description}</p>
-    </div>
-    <div class="card-footer">
-      <button class="btn btn-primary">Köp</button>
-      <button class="btn btn-secondary">Mer info</button>
-    </div>
-  `;
-
-  container?.appendChild(card);
-<<<<<<< HEAD
-});
-=======
-});
+      container?.appendChild(card);
+    });
+  })
+  .catch(error => {
+    console.error("Kunde inte hämta produkter:", error);
+  });
 
 const productOverview = async () => {
   const product = await getSingleProduct(5216);
@@ -44,4 +35,3 @@ const productOverview = async () => {
 };
 
 productOverview();
->>>>>>> dev
