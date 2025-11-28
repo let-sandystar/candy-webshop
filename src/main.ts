@@ -1,6 +1,7 @@
 import "./assets/scss/style.scss";
 import { getAllProducts } from "./services/allproducts"
 import { getSingleProduct } from "./services/singleproduct";
+import { BASE } from "./services/allproducts";
 
 const container = document.querySelector<HTMLDivElement>("#product-list");
 
@@ -12,7 +13,7 @@ getAllProducts()
       card.classList.add("card");
 
       card.innerHTML = `
-        <img class="card-img-top" src="${product.images[0]}" alt="${product.name}">
+        <img class="card-img-top" src="${BASE}${product.images.thumbnail}" alt="${product.name}">
         <div class="card-body">
           <h5 class="card-title">${product.name}</h5>
         </div>
