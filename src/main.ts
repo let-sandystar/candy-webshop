@@ -16,6 +16,7 @@ getAllProducts()
         <img class="card-img-top" src="${BASE}${product.images.thumbnail}" alt="${product.name}">
         <div class="card-body">
           <h5 class="card-title">${product.name}</h5>
+          <p class="card-price">${product.price} kr</p>
         </div>
         <div class="card-footer">
           <button class="btn btn-primary">Köp</button>
