@@ -22,3 +22,8 @@ export interface SingleProductResponse {
     status: string;
     data: Candy;
 }
+
+export interface CartItem {
+    candy: Candy;
+    qty: number;
+}

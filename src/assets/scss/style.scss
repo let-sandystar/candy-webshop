@@ -162,6 +162,7 @@ white-space: nowrap;
 .search-input:focus {
     outline: 2px solid #E9A559;
     outline-offset: 2px;
+    background: #D7758E;
 }
 
 .footer button,
@@ -176,6 +177,17 @@ white-space: nowrap;
     color: white;
     transition: transform 0.2s; 
     margin:10px 0px 20px 0px;
+}
+
+.checkoutForm .btn-primary::after {
+  display:none;
+}
+
+.Checkout {
+  background-color: $dark;
+  color: white;
+  border-radius: 12px;
+  padding: 1.5rem;
 }
 
 .footer button:hover,
@@ -273,6 +285,7 @@ white-space: nowrap;
       &:hover {
         background-color: rgb(251, 162, 177);
       }
+
 
   @media (min-width: 768px) {
     .navbar {
