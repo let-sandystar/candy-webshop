@@ -6,6 +6,13 @@ export interface Candy {
     price: number;
     stock_quantity: number;
     stock_status: string;
+    tags: Tag[];
+}
+
+export interface Tag {
+    id: number;
+    name: string;
+    slug: string;
 }
 
 export interface ProductImages {

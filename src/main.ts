@@ -20,7 +20,7 @@ getAllProducts()
         </div>
         <div class="card-footer">
           <button class="btn btn-primary">Köp</button>
-          <button class="btn btn-secondary">Mer info</button>
+          <button class="btn btn-secondary more-info-btn" data-id=${product.id}>Mer info</button>
         </div>
       `;
 
@@ -31,9 +31,42 @@ getAllProducts()
     console.error("Kunde inte hämta produkter:", error);
   });
 
+  container?.addEventListener("click", (e) => {
+    const target = e.target as HTMLElement;
+
+    if (target.classList.contains("more-info-btn")) {
+      const id = target.dataset.id;
+      if(!id) return;
+
+      getSingleProduct(id).then(product => {
+        (document.getElementById("popup-title") as HTMLElement).innerText = product.data.name;
+      
+        const tags = product.data.tags.map(tag => tag.name).join(", ");
+        (document.getElementById("popup-description") as HTMLElement).innerText =
+          tags || "Ingen information 😕";
+      
+        (document.getElementById("popup-price") as HTMLElement).innerText =
+          product.data.price + " kr";
+
+          const popupImage = document.getElementById("popup-image") as HTMLImageElement;
+          popupImage.src = BASE + product.data.images.large;
+          popupImage.alt = product.data.name;
+      
+        document.getElementById("info-popup")?.classList.remove("hidden");
+        document.body.classList.add("no-scroll");
+      });
+    }
+  });
+
+  document.getElementById("popup-close")?.addEventListener("click", () => {
+    document.getElementById("info-popup")?.classList.add("hidden");
+    document.body.classList.remove("no-scroll");
+  });
+
 const productOverview = async () => {
   const product = await getSingleProduct(5216);
   console.log(product.data.name, product.data.price);
 };
 
 productOverview();
+
