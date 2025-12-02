@@ -27,3 +27,17 @@ export interface CartItem {
     candy: Candy;
     qty: number;
 }
+
+export interface orderPayLoad {
+    name: string; 
+    address: string;
+    postnr: number;
+    city: string;
+    email: string;
+    items: CartItem[];
+}
+
+export interface orderResponse {
+    status: string;
+    data: [];
+}
