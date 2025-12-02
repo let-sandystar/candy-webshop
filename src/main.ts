@@ -1,11 +1,12 @@
 import "./assets/scss/style.scss";
-import { getAllProducts } from "./services/allproducts"
+import { getAllProducts, BASE } from "./services/allproducts"
 import { getSingleProduct } from "./services/singleproduct";
-import { BASE } from "./services/allproducts";
+import { postOrder } from "./services/postorder";
 import type { Candy, CartItem } from "./services/candy.types";
 
 const container = document.querySelector<HTMLDivElement>("#product-list");
 const cartContainer = document.querySelector<HTMLDivElement>("#cart-items");
+const form = document.querySelector<HTMLFormElement>("#checkoutForm");
 
 let cart: CartItem[] = [];
 
@@ -91,6 +92,11 @@ function addCart(candy: Candy) {
 
  loadCart();
  renderCart();
+
+ //kassans logik
+form?.addEventListener("submit", async (e) => {
+    e.preventDefault();
+})
 
 getAllProducts()
   .then(products => {
