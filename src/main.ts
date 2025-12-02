@@ -37,22 +37,25 @@ function renderCart() {
   cartItemDiv.classList.add("cart-item", "row", "align-items-center", "text-center", "mb-2", "p-2", "bg-dark");
 
  cartItemDiv.innerHTML = `
-  <div class="row g-0">
-    <div class="col-4 d-flex flex-column align-items-center justify-content-center px-4">
-      <img src="${BASE}${item.candy.images.thumbnail}" class="cart-item-img me-2" alt="${item.candy.name}">
-      <div class="product-name">${item.candy.name}</div>
+    <div class="row g-0">
+        <div class="col-sm-6 col-md-3 d-flex justify-content-center">
+            <img src="${BASE}${item.candy.images.thumbnail}" class="cart-item-img me-2" alt="${item.candy.name}">
+            <div class="product-name">${item.candy.name}</div>
+        </div>
+        <div class="col-sm-6 col-md-3 d-flex justify-content-center">
+            <div class="cart-quantity-wrapper">
+                <button class ="minus-btn" type="button">-</button>
+                <input type="text" class="form-control text-center" value="${item.qty}" readonly>
+                <button class="plus-btn" type="button">+</button>
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-3 d-flex justify-content-center text-white fw-bold">
+            ${item.candy.price} kr
+        </div>
+        <div class="col-sm-6 col-md-3 d-flex align-items-center justify-content-center text-white fw-bold">
+            ${item.qty * item.candy.price} kr
+        </div>
     </div>
-    <div class="col-4 d-flex justify-content-center">
-      <div class="cart-quantity-wrapper">
-        <button class ="minus-btn" type="button">-</button>
-        <input type="text" class="form-control text-center" value="${item.qty}" readonly>
-        <button class="plus-btn" type="button">+</button>
-    </div>
-  </div>
-    <div class="col-4 d-flex align-items-center justify-content-center text-white fw-bold">
-      ${item.qty * item.candy.price} kr
-    </div>
-  </div>
   `;
 
   const minusBtn = cartItemDiv.querySelector<HTMLButtonElement>(".minus-btn");
