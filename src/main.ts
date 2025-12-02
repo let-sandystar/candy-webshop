@@ -6,6 +6,7 @@ import type { Candy, CartItem } from "./services/candy.types";
 
 const container = document.querySelector<HTMLDivElement>("#product-list");
 const cartContainer = document.querySelector<HTMLDivElement>("#cart-items");
+const cartTotalEl = document.querySelector<HTMLTableElement>("#cart-total");
 
 let cart: CartItem[] = [];
 
@@ -30,6 +31,10 @@ function renderCart() {
     return;
   }
 
+function calculateTotal() {
+    return cart.reduce((sum, item) => sum + item.qty * item.candy.price, 0);
+  }
+
   cart.forEach(item => {
     const row = document.createElement("tr");
 
@@ -48,6 +53,10 @@ function renderCart() {
       <td class="text-center">${item.candy.price} kr</td>
       <td class="text-center">${item.qty * item.candy.price} kr</td>
     `;
+
+    if (cartTotalEl) {
+      cartTotalEl.textContent = calculateTotal() + "kr";
+    }
 
     const minusBtn = row.querySelector<HTMLButtonElement>(".minus-btn");
     const plusBtn = row.querySelector<HTMLButtonElement>(".plus-btn");
