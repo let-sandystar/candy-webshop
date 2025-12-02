@@ -26,59 +26,51 @@ function renderCart() {
   cartContainer.innerHTML = "";
 
   if (cart.length === 0) {
-    cartContainer.innerHTML = `
-    <p class="text-center text-white">Din varukorg är tom</p>
-   `;
+    cartContainer.innerHTML = `<tr><td colspan="4" class="text-center">Din varukorg är tom</td></tr>`;
     return;
   }
 
- cart.forEach(item => {
-  const cartItemDiv = document.createElement("div");
-  cartItemDiv.classList.add("cart-item", "row", "align-items-center", "text-center", "mb-2", "p-2", "bg-dark");
+  cart.forEach(item => {
+    const row = document.createElement("tr");
 
- cartItemDiv.innerHTML = `
-    <div class="row g-0">
-        <div class="col-sm-6 col-md-3 d-flex justify-content-center">
-            <img src="${BASE}${item.candy.images.thumbnail}" class="cart-item-img me-2" alt="${item.candy.name}">
-            <div class="product-name">${item.candy.name}</div>
+    row.innerHTML = `
+      <td>
+        <img src="${BASE}${item.candy.images.thumbnail}" class="cart-item-img" alt="${item.candy.name}">
+        <div class="product-name">${item.candy.name}</div>
+      </td>
+      <td class="text-center">
+        <div class="cart-quantity-wrapper">
+          <button class="minus-btn" type="button">-</button>
+          <input type="text" class="form-control" value="${item.qty}" readonly>
+          <button class="plus-btn" type="button">+</button>
         </div>
-        <div class="col-sm-6 col-md-3 d-flex justify-content-center">
-            <div class="cart-quantity-wrapper">
-                <button class ="minus-btn" type="button">-</button>
-                <input type="text" class="form-control text-center" value="${item.qty}" readonly>
-                <button class="plus-btn" type="button">+</button>
-            </div>
-        </div>
-        <div class="col-sm-6 col-md-3 d-flex justify-content-center text-white fw-bold">
-            ${item.candy.price} kr
-        </div>
-        <div class="col-sm-6 col-md-3 d-flex align-items-center justify-content-center text-white fw-bold">
-            ${item.qty * item.candy.price} kr
-        </div>
-    </div>
-  `;
+      </td>
+      <td class="text-center">${item.candy.price} kr</td>
+      <td class="text-center">${item.qty * item.candy.price} kr</td>
+    `;
 
-  const minusBtn = cartItemDiv.querySelector<HTMLButtonElement>(".minus-btn");
-  const plusBtn = cartItemDiv.querySelector<HTMLButtonElement>(".plus-btn");
-  
-  minusBtn?.addEventListener("click", () => {
-    if (item.qty > 1) {
-      item.qty--;
-    } else {
-      cart = cart.filter(i => i.candy.id !== item.candy.id);
-    }
-    saveCart();
-    renderCart();
-});
+    const minusBtn = row.querySelector<HTMLButtonElement>(".minus-btn");
+    const plusBtn = row.querySelector<HTMLButtonElement>(".plus-btn");
+    
+    minusBtn?.addEventListener("click", () => {
+      if (item.qty > 1) {
+        item.qty--;
+      } else {
+        cart = cart.filter(i => i.candy.id !== item.candy.id);
+      }
+      saveCart();
+      renderCart();
+    });
 
     plusBtn?.addEventListener("click", () => {
       item.qty++;
       saveCart();
       renderCart();
     });
-    cartContainer.appendChild(cartItemDiv);
+
+    cartContainer.appendChild(row);
   });
- }
+}
 
 function addCart(candy: Candy) {
   const item = cart.find(i => i.candy.id === candy.id);

@@ -321,14 +321,36 @@ white-space: nowrap;
   font-size: 1rem;
   letter-spacing: 1px;
 }
+
+table {
+  width: 100%;
+}
+
+table th,
+table td {
+  padding: 0.75rem;
+  text-align: left;
+  vertical-align: middle;
+}
+
+table th {
+  font-weight: 600;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+table td {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
 .cart-item-img {
-  width: 120px;
-  height: 120px;
+  width: 80px;
+  height: 80px;
   object-fit: contain; 
   border-radius: 6px;
   display: block;
-  margin: 0 auto;
+  margin-bottom: 0.5rem;
 }
+
 .product-name {
   font-size: 0.9rem;
   color: white; 
@@ -342,15 +364,25 @@ white-space: nowrap;
   justify-content: center;
   gap: 2px;
 }
+
 .form-control {
   background: transparent;
-  width: 20px;
+  width: 50px;
   height: 40px;
-  border: none;
+  border: 1px solid rgba(255, 255, 255, 0.3);
   color: white;
   text-align: center;
-  padding: 0;
+  padding: 0.25rem;
   margin: 0;
+  border-radius: 4px;
+  font-size: 0.95rem;
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: #E9A559;
+  background: transparent;
+  color: white;
 }
 
 .minus-btn, 
@@ -358,23 +390,24 @@ white-space: nowrap;
   background-color: transparent;
   width: 40px;
   height: 40px;
-  border: none;
+  border: 1px solid rgba(255, 255, 255, 0.3);
   color: white;
-  font-size: 1.5rem;
+  font-size: 1rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 6px;
-  transition: transform 0.2s;
+  border-radius: 4px;
+  transition: all 0.2s;
   cursor: pointer;
+  padding: 0;
 }
 
 .minus-btn:hover,
 .plus-btn:hover {
-    background-color: transparent;
-    color: #E9A559;
-    transform: scale(1.5);
-  }
+  background-color: rgba(233, 165, 89, 0.1);
+  color: #E9A559;
+  border-color: #E9A559;
+}
 
 @media (min-width: 768px) {
   .card {
