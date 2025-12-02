@@ -34,31 +34,30 @@ function renderCart() {
 
  cart.forEach(item => {
   const cartItemDiv = document.createElement("div");
-  cartItemDiv.classList.add("card", "bg-dark", "border-0", "mb-3");
+  cartItemDiv.classList.add("cart-item", "row", "align-items-center", "text-center", "mb-2", "p-2", "bg-dark");
 
-  cartItemDiv.innerHTML = `
-    <div class="row g-0">
-        <div class="col-3">
-          <img src="${BASE}${item.candy.images.thumbnail}" class="img-fluid rounded" alt="${item.candy.name}">
-        </div>
-        <div class="col-9">
-          <div class="card-body">
-          <h5 class="card-title">${item.candy.name}</h5>
-          <p class="card-text">${item.candy.price} kr</p>
-          <div class ="input-group" style="max-width: 120px;">
-          <button class ="btn btn-secondary minus-btn" type="button">-</button>
-          <input type="text" class="form-control text-center" value="${item.qty}" readonly>
-          <button class="btn btn-secondary plus-btn" type="button">+</button>
-        </div>
-      </div>
+ cartItemDiv.innerHTML = `
+  <div class="row g-0">
+    <div class="col-4 d-flex flex-column align-items-center justify-content-center px-4">
+      <img src="${BASE}${item.candy.images.thumbnail}" class="cart-item-img me-2" alt="${item.candy.name}">
+      <div class="product-name">${item.candy.name}</div>
+    </div>
+    <div class="col-4 d-flex justify-content-center">
+      <div class="cart-quantity-wrapper">
+        <button class ="minus-btn" type="button">-</button>
+        <input type="text" class="form-control text-center" value="${item.qty}" readonly>
+        <button class="plus-btn" type="button">+</button>
+    </div>
+  </div>
+    <div class="col-4 d-flex align-items-center justify-content-center text-white fw-bold">
+      ${item.qty * item.candy.price} kr
     </div>
   </div>
   `;
 
   const minusBtn = cartItemDiv.querySelector<HTMLButtonElement>(".minus-btn");
   const plusBtn = cartItemDiv.querySelector<HTMLButtonElement>(".plus-btn");
-  const qtyInput = cartItemDiv.querySelector<HTMLInputElement>("input");
-
+  
   minusBtn?.addEventListener("click", () => {
     if (item.qty > 1) {
       item.qty--;
