@@ -180,6 +180,11 @@ white-space: nowrap;
     margin:10px 0px 20px 0px;
 }
 
+.checkout-btn-wrapper {
+  display: flex; 
+  justify-content: center;
+}
+
 .checkoutForm .btn-primary::after {
   display:none;
 }
@@ -416,13 +421,11 @@ table td {
 
 .checkout-btn {
   border: none;
-  width: 100%;
   border-radius: 5px;
   background:#D7758E;
   letter-spacing: 1px; 
   color: white;
   transition: transform 0.2s; 
-  margin:10px 0px 20px 0px;
 }
 
 @media (min-width: 768px) {
