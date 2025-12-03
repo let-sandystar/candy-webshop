@@ -386,7 +386,8 @@ table td {
 }
 
 .minus-btn, 
-.plus-btn {
+.plus-btn,
+.delete-btn {
   background-color: transparent;
   width: 40px;
   height: 40px;
@@ -403,7 +404,8 @@ table td {
 }
 
 .minus-btn:hover,
-.plus-btn:hover {
+.plus-btn:hover,
+.delete-btn:hover {
   background-color: rgba(233, 165, 89, 0.1);
   color: #E9A559;
   border-color: #E9A559;

@@ -52,6 +52,9 @@ function calculateTotal() {
       </td>
       <td class="text-center">${item.candy.price} kr</td>
       <td class="text-center">${item.qty * item.candy.price} kr</td>
+      <td class="text-center">
+      <button class="delete-btn">
+      <i class="fa-regular fa-trash-can"></i>
     `;
 
     if (cartTotalEl) {
