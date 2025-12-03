@@ -26,6 +26,9 @@ export interface SingleProductResponse {
 export interface CartItem {
     candy: Candy;
     qty: number;
+    id: number;
+    price: number;
+    /* total: number; */
 }
 
 export interface formData {
