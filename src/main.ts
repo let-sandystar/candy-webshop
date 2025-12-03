@@ -19,6 +19,10 @@ function loadCart() {
   }
 }
 
+function calculateTotal() {
+    return cart.reduce((sum, item) => sum + item.qty * item.candy.price, 0);
+  }
+
 function saveCart() {
   localStorage.setItem("cart", JSON.stringify(cart));
   }
@@ -31,10 +35,6 @@ function renderCart() {
   if (cart.length === 0) {
     cartContainer.innerHTML = `<tr><td colspan="4" class="text-center">Din varukorg är tom</td></tr>`;
     return;
-  }
-
-function calculateTotal() {
-    return cart.reduce((sum, item) => sum + item.qty * item.candy.price, 0);
   }
 
   cart.forEach(item => {
@@ -149,7 +149,7 @@ form?.addEventListener("submit", async (e) => {
         item_price: item.price,
         item_total: item.price * item.qty,
       })),
-      /* order_total: *///ska prova kalla funktionen här till att räkna ut totalen som ligger i en annan branch fortf
+      order_total: calculateTotal(),
     };
 
     try {
