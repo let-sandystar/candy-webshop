@@ -27,7 +27,7 @@ function renderCart() {
   cartContainer.innerHTML = "";
 
   if (cart.length === 0) {
-    cartContainer.innerHTML = `<tr><td colspan="4" class="text-center">Din varukorg är tom</td></tr>`;
+    cartContainer.innerHTML = `<tr><td colspan="5" class="text-center">Din varukorg är tom</td></tr>`;
     return;
   }
 
@@ -81,6 +81,13 @@ function calculateTotal() {
       saveCart();
       renderCart();
     });
+
+    const deleteBtn = row.querySelector<HTMLButtonElement>(".delete-btn");
+    deleteBtn?.addEventListener("click", () => {
+      cart = cart.filter(i => i.candy.id !== item.candy.id);
+        saveCart();
+        renderCart();
+      });
 
     cartContainer.appendChild(row);
   });
