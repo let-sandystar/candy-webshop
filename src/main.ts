@@ -1,12 +1,12 @@
 import "./assets/scss/style.scss";
-import { getAllProducts, BASE } from "./services/allproducts"
+import { getAllProducts } from "./services/allproducts"
 import { getSingleProduct } from "./services/singleproduct";
-import { postOrder } from "./services/postorder";
-import type { Candy, CartItem, orderPayLoad } from "./services/candy.types";
+import { BASE } from "./services/allproducts";
+import type { Candy, CartItem } from "./services/candy.types";
 
 const container = document.querySelector<HTMLDivElement>("#product-list");
 const cartContainer = document.querySelector<HTMLDivElement>("#cart-items");
-const form = document.querySelector<HTMLFormElement>("#checkoutForm");
+const cartTotalEl = document.querySelector<HTMLTableElement>("#cart-total");
 
 let cart: CartItem[] = [];
 
@@ -27,63 +27,69 @@ function renderCart() {
   cartContainer.innerHTML = "";
 
   if (cart.length === 0) {
-    cartContainer.innerHTML = `
-    <p class="text-center text-white">Din varukorg är tom</p>
-   `;
+    cartContainer.innerHTML = `<tr><td colspan="4" class="text-center">Din varukorg är tom</td></tr>`;
     return;
   }
 
- cart.forEach(item => {
-  const cartItemDiv = document.createElement("div");
-  cartItemDiv.classList.add("cart-item", "row", "align-items-center", "text-center", "mb-2", "p-2", "bg-dark");
+function calculateTotal() {
+    return cart.reduce((sum, item) => sum + item.qty * item.candy.price, 0);
+  }
 
- cartItemDiv.innerHTML = `
-  <div class="row g-0">
-    <div class="col-4 d-flex flex-column align-items-center justify-content-center px-4">
-      <img src="${BASE}${item.candy.images.thumbnail}" class="cart-item-img me-2" alt="${item.candy.name}">
-      <div class="product-name">${item.candy.name}</div>
-    </div>
-    <div class="col-4 d-flex justify-content-center">
-      <div class="cart-quantity-wrapper">
-        <button class ="minus-btn" type="button">-</button>
-        <input type="text" class="form-control text-center" value="${item.qty}" readonly>
-        <button class="plus-btn" type="button">+</button>
-    </div>
-  </div>
-    <div class="col-4 d-flex align-items-center justify-content-center text-white fw-bold">
-      ${item.qty * item.candy.price} kr
-    </div>
-  </div>
-  `;
+  cart.forEach(item => {
+    const row = document.createElement("tr");
 
-  const minusBtn = cartItemDiv.querySelector<HTMLButtonElement>(".minus-btn");
-  const plusBtn = cartItemDiv.querySelector<HTMLButtonElement>(".plus-btn");
-  
-  minusBtn?.addEventListener("click", () => {
-    if (item.qty > 1) {
-      item.qty--;
-    } else {
-      cart = cart.filter(i => i.candy.id !== item.candy.id);
+    row.innerHTML = `
+      <td>
+        <img src="${BASE}${item.candy.images.thumbnail}" class="cart-item-img" alt="${item.candy.name}">
+        <div class="product-name">${item.candy.name}</div>
+      </td>
+      <td class="text-center">
+        <div class="cart-quantity-wrapper">
+          <button class="minus-btn" type="button">-</button>
+          <input type="text" class="form-control" value="${item.qty}" readonly>
+          <button class="plus-btn" type="button">+</button>
+        </div>
+      </td>
+      <td class="text-center">${item.candy.price} kr</td>
+      <td class="text-center">${item.qty * item.candy.price} kr</td>
+    `;
+
+    if (cartTotalEl) {
+      cartTotalEl.textContent = calculateTotal() + "kr";
     }
-    saveCart();
-    renderCart();
-});
+
+    const minusBtn = row.querySelector<HTMLButtonElement>(".minus-btn");
+    const plusBtn = row.querySelector<HTMLButtonElement>(".plus-btn");
+    
+    minusBtn?.addEventListener("click", () => {
+      if (item.qty > 1) {
+        item.qty--;
+      } else {
+        cart = cart.filter(i => i.candy.id !== item.candy.id);
+      }
+      saveCart();
+      renderCart();
+    });
 
     plusBtn?.addEventListener("click", () => {
       item.qty++;
       saveCart();
       renderCart();
     });
-    cartContainer.appendChild(cartItemDiv);
+
+    cartContainer.appendChild(row);
   });
- }
+}
 
 function addCart(candy: Candy) {
   const item = cart.find(i => i.candy.id === candy.id);
   if(item) {
     item.qty++;
   } else {
-    cart.push({candy, qty: 1});//varför började denna klaga nu? :(
+    cart.push({candy,
+      qty: 1,
+      id: candy.id,
+      price: candy.price,});
   }
   saveCart();
   renderCart();
@@ -91,31 +97,6 @@ function addCart(candy: Candy) {
 
  loadCart();
  renderCart();
-
- //kassans logik
-form?.addEventListener("submit", async (e) => {
-    e.preventDefault();
-
-    const sendOrder: orderPayLoad = {
-      order_items: cart.map(item =>({
-        product_id: item.id,
-        qty: item.qty, 
-        item_price: item.price,
-        item_total: item.price * item.qty,
-      })),
-      /* order_total: *///ska prova kalla funktionen här till att räkna ut totalen som ligger i en annan branch fortf
-    };
-
-    try {
-      const orderResult = await postOrder(sendOrder);
-      console.log("Det funkade", orderResult);
-      alert("Din order lyckades, tack för att du har handlat hos oss!")
-    } catch (err) {
-      alert("Hmm något har kraschat");
-      console.error("Det här gick fel", err);
-      throw err;
-    }
-});
 
 getAllProducts()
   .then(products => {
