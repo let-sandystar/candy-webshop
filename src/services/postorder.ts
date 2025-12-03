@@ -1,12 +1,12 @@
 import type { orderPayLoad,orderResponse } from "./candy.types";
 const POST = import.meta.env.VITE_API_ORDER_URL;
 
-export const postOrder = async (orderPayLoad: orderPayLoad):Promise<orderResponse> => {
+export const postOrder = async (payLoad: orderPayLoad):Promise<orderResponse> => {
     try {
         const res = await fetch(`${POST}`, {
             method: "POST",
             headers: { "Content-Type":"application/json" },
-            body: JSON.stringify(orderPayLoad)
+            body: JSON.stringify(payLoad),
         });
         
         if(!res.ok) throw new Error(`${res.status} ${res.statusText}`);

@@ -28,13 +28,25 @@ export interface CartItem {
     qty: number;
 }
 
-export interface orderPayLoad {
+export interface formData {
     name: string; 
     address: string;
     postnr: number;
     city: string;
+    phone: string;
     email: string;
-    items: CartItem[];
+}
+
+export interface orderItem {
+    product_id: number;
+    qty: number;
+    item_price: number;
+    item_total: number;
+}
+
+export interface orderPayLoad {
+    order_items: orderItem[];
+    order_total: number;
 }
 
 export interface orderResponse {
