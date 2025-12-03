@@ -54,6 +54,11 @@ function renderCart() {
       </td>
       <td class="text-center">${item.candy.price} kr</td>
       <td class="text-center">${item.qty * item.candy.price} kr</td>
+      <td class="text-center">
+      <button class="delete-btn">
+      <i class="fa-regular fa-trash-can"></i>
+      </button>
+      </td>
     `;
 
     if (cartTotalEl) {
@@ -78,6 +83,13 @@ function renderCart() {
       saveCart();
       renderCart();
     });
+
+    const deleteBtn = row.querySelector<HTMLButtonElement>(".delete-btn");
+    deleteBtn?.addEventListener("click", () => {
+      cart = cart.filter(i => i.candy.id !== item.candy.id);
+        saveCart();
+        renderCart();
+      });
 
     cartContainer.appendChild(row);
   });
