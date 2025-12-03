@@ -55,6 +55,8 @@ function calculateTotal() {
       <td class="text-center">
       <button class="delete-btn">
       <i class="fa-regular fa-trash-can"></i>
+      </button>
+      </td>
     `;
 
     if (cartTotalEl) {
