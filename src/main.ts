@@ -6,6 +6,7 @@ import type { Candy, CartItem } from "./services/candy.types";
 
 const container = document.querySelector<HTMLDivElement>("#product-list");
 const cartContainer = document.querySelector<HTMLDivElement>("#cart-items");
+const inputCandySearch = document.querySelector<HTMLInputElement>("#search-bar");
 
 let cart: CartItem[] = [];
 
@@ -129,3 +130,17 @@ const productOverview = async () => {
 
 productOverview();
 
+inputCandySearch?.addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  if(!getSingleProduct){
+    alert("Kunde inte hitta ditt godis, prova ett annat")
+    return;
+  }
+
+  try {
+    //Hämta singleproduct api och visa modalen med sökt godis när det är klart
+  } catch (error) {
+    
+  }
+})
