@@ -166,7 +166,8 @@ white-space: nowrap;
 }
 
 .footer button,
-.checkoutForm button {
+.checkoutForm button,
+.checkout-btn {
     width: 90%; 
     max-width: 300px; 
     padding: 10px; 
@@ -191,7 +192,8 @@ white-space: nowrap;
 }
 
 .footer button:hover,
-.checkoutForm button:hover {
+.checkoutForm button:hover,
+.checkout-btn:hover {
     transform: scale(1.05);
     border: solid 2px #E9A559;
 }
@@ -324,12 +326,13 @@ white-space: nowrap;
 
 table {
   width: 100%;
+  table-layout: fixed;
 }
 
 table th,
 table td {
-  padding: 0.75rem;
-  text-align: left;
+
+  text-align: center;
   vertical-align: middle;
 }
 
@@ -343,11 +346,11 @@ table td {
 }
 
 .cart-item-img {
-  width: 80px;
-  height: 80px;
+  max-width: 70px;
+  width: 100%;
+  height: auto;
   object-fit: contain; 
   border-radius: 6px;
-  display: block;
   margin-bottom: 0.5rem;
 }
 
@@ -362,20 +365,20 @@ table td {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 5px;
+  width: 100%;
+  gap: 4px;
 }
 
 .form-control {
   background: transparent;
-  width: 50px;
-  height: 40px;
+  width: 30px;
+  height: 25px;
   border: 1px solid rgba(255, 255, 255, 0.3);
   color: white;
   text-align: center;
-  padding: 0.25rem;
-  margin: 0;
   border-radius: 4px;
-  font-size: 0.95rem;
+  font-size: 0.9rem;
+  padding:0;
 }
 
 .form-control:focus {
@@ -389,8 +392,8 @@ table td {
 .plus-btn,
 .delete-btn {
   background-color: transparent;
-  width: 40px;
-  height: 40px;
+  width: 25px;
+  height: 25px;
   border: 1px solid rgba(255, 255, 255, 0.3);
   color: white;
   font-size: 1rem;
@@ -399,8 +402,8 @@ table td {
   justify-content: center;
   border-radius: 4px;
   transition: all 0.2s;
-  cursor: pointer;
   padding: 0;
+  cursor: pointer;
 }
 
 .minus-btn:hover,
@@ -409,6 +412,17 @@ table td {
   background-color: rgba(233, 165, 89, 0.1);
   color: #E9A559;
   border-color: #E9A559;
+}
+
+.checkout-btn {
+  border: none;
+  width: 100%;
+  border-radius: 5px;
+  background:#D7758E;
+  letter-spacing: 1px; 
+  color: white;
+  transition: transform 0.2s; 
+  margin:10px 0px 20px 0px;
 }
 
 @media (min-width: 768px) {

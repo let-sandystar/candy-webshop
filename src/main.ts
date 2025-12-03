@@ -60,7 +60,7 @@ function calculateTotal() {
     `;
 
     if (cartTotalEl) {
-      cartTotalEl.textContent = calculateTotal() + "kr";
+      cartTotalEl.textContent = calculateTotal() + " kr";
     }
 
     const minusBtn = row.querySelector<HTMLButtonElement>(".minus-btn");
