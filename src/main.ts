@@ -2,11 +2,13 @@ import "./assets/scss/style.scss";
 import { getAllProducts } from "./services/allproducts"
 import { getSingleProduct } from "./services/singleproduct";
 import { BASE } from "./services/allproducts";
-import type { Candy, CartItem } from "./services/candy.types";
+import type { Candy, CartItem, orderPayLoad } from "./services/candy.types";
+import { postOrder } from "./services/postorder";
 
 const container = document.querySelector<HTMLDivElement>("#product-list");
 const cartContainer = document.querySelector<HTMLDivElement>("#cart-items");
 const cartTotalEl = document.querySelector<HTMLTableElement>("#cart-total");
+const form = document.querySelector<HTMLFormElement>("#checkoutForm");
 
 let cart: CartItem[] = [];
 
@@ -135,4 +137,29 @@ const productOverview = async () => {
 };
 
 productOverview();
+
+ //kassans logik
+form?.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const sendOrder: orderPayLoad = {
+      order_items: cart.map(item =>({
+        product_id: item.id,
+        qty: item.qty, 
+        item_price: item.price,
+        item_total: item.price * item.qty,
+      })),
+      /* order_total: *///ska prova kalla funktionen här till att räkna ut totalen som ligger i en annan branch fortf
+    };
+
+    try {
+      const orderResult = await postOrder(sendOrder);
+      console.log("Det funkade", orderResult);
+      alert("Din order lyckades, tack för att du har handlat hos oss!")
+    } catch (err) {
+      alert("Hmm något har kraschat");
+      console.error("Det här gick fel", err);
+      throw err;
+    }
+});
 
