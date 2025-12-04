@@ -1,3 +1,4 @@
+//Importer
 import "./assets/scss/style.scss";
 import { getAllProducts } from "./services/allproducts"
 import { getSingleProduct } from "./services/singleproduct";
@@ -5,12 +6,14 @@ import { BASE } from "./services/allproducts";
 import type { Candy, CartItem, orderPayLoad } from "./services/candy.types";
 import { postOrder } from "./services/postorder";
 
+//DOM variabler
 const container = document.querySelector<HTMLDivElement>("#product-list");
 const cartContainer = document.querySelector<HTMLDivElement>("#cart-items");
 const cartTotalEl = document.querySelector<HTMLTableElement>("#cart-total");
 const totalTitle = document.querySelector<HTMLTableCellElement>("#total-title");
 const form = document.querySelector<HTMLFormElement>("#checkoutForm");
 
+//Globala variabler
 let cart: CartItem[] = [];
 
 function loadCart() {
