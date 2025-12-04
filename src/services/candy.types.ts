@@ -55,12 +55,25 @@ export interface orderItem {
     item_total: number;
 }
 
-export interface orderPayLoad {
+export interface orderRequest {
+    customer: CustomerInfo;
     order_items: orderItem[];
     order_total: number;
 }
 
 export interface orderResponse {
-    status: string;
-    data: [];
+    //status: string;
+    //data: [];
+    order_id: number; 
+    message: string;
 }
+
+export interface CustomerInfo {
+    name: string; 
+    address: string; 
+    zip: string; 
+    city: string;
+    phone: string; 
+    email: string; 
+}
+

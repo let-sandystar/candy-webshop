@@ -1,19 +1,19 @@
-import type { orderPayLoad,orderResponse } from "./candy.types";
+import type { orderRequest, orderResponse } from "./candy.types";
 const POST = import.meta.env.VITE_API_ORDER_URL;
 
-export const postOrder = async (payLoad: orderPayLoad):Promise<orderResponse> => {
-    try {
-        const res = await fetch(`${POST}`, {
-            method: "POST",
-            headers: { "Content-Type":"application/json" },
-            body: JSON.stringify(payLoad),
-        });
-        
-        if(!res.ok) throw new Error(`${res.status} ${res.statusText}`);
+export async function postOrder(order: orderRequest) : Promise<orderResponse> {
+    const res = await fetch(`${POST}`, {
+        method: "POST", 
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(order)
+    });
 
-        return await res.json() as orderResponse;
-    } catch(err) {
-        console.error("Fel vid order", err);
-        throw err;
+    if (!res.ok) {
+        throw new Error ("Något gick fel, beställning har ej slutförts!")
     }
-};
+
+    const data: orderResponse = await res.json();
+    return data;
+}
