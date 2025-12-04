@@ -196,13 +196,13 @@ productOverview();
 form?.addEventListener("submit", async (e) => {
     e.preventDefault();
 
-    const customer_address = (document.querySelector("#address") as HTMLInputElement).value;
-    const customer_postcode = (document.querySelector("#zip") as HTMLInputElement).value;
-    const customer_city = (document.querySelector("#city") as HTMLInputElement).value;
-    const customer_phone = (document.querySelector("#phone") as HTMLInputElement).value;
-    const customer_email = (document.querySelector("#email") as HTMLInputElement).value;
-    const customer_first_name = (document.querySelector("#firstName") as HTMLInputElement).value;
-    const customer_last_name = (document.querySelector("#lastName") as HTMLInputElement).value;
+    const customer_address = (document.querySelector("#customer_address") as HTMLInputElement).value;
+    const customer_postcode = (document.querySelector("#customer_postcode") as HTMLInputElement).value;
+    const customer_city = (document.querySelector("#customer_city") as HTMLInputElement).value;
+    const customer_phone = (document.querySelector("#customer_phone") as HTMLInputElement).value;
+    const customer_email = (document.querySelector("#customer_email") as HTMLInputElement).value;
+    const customer_first_name = (document.querySelector("#customer_first_name") as HTMLInputElement).value;
+    const customer_last_name = (document.querySelector("#customer_last_name") as HTMLInputElement).value;
 
     const sendOrder: orderRequest = {
         customer_first_name,
