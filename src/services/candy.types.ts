@@ -55,8 +55,7 @@ export interface orderItem {
     item_total: number;
 }
 
-export interface orderRequest {
-    customer: CustomerInfo;
+export interface orderRequest extends CustomerInfo{
     order_items: orderItem[];
     order_total: number;
 }
@@ -69,11 +68,12 @@ export interface orderResponse {
 }
 
 export interface CustomerInfo {
-    name: string; 
-    address: string; 
-    zip: string; 
-    city: string;
-    phone: string; 
-    email: string; 
+    customer_first_name: string;
+    customer_last_name: string; 
+    customer_address: string; 
+    customer_postcode: string; 
+    customer_city: string;
+    customer_phone: string; 
+    customer_email: string; 
 }
 

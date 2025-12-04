@@ -196,23 +196,23 @@ productOverview();
 form?.addEventListener("submit", async (e) => {
     e.preventDefault();
 
-    const name = (document.querySelector("#name") as HTMLInputElement).value;
-    const address = (document.querySelector("#address") as HTMLInputElement).value;
-    const zip = (document.querySelector("#zip") as HTMLInputElement).value;
-    const city = (document.querySelector("#city") as HTMLInputElement).value;
-    const phone = (document.querySelector("#phone") as HTMLInputElement).value;
-    const email = (document.querySelector("#email") as HTMLInputElement).value;
+    const customer_address = (document.querySelector("#address") as HTMLInputElement).value;
+    const customer_postcode = (document.querySelector("#zip") as HTMLInputElement).value;
+    const customer_city = (document.querySelector("#city") as HTMLInputElement).value;
+    const customer_phone = (document.querySelector("#phone") as HTMLInputElement).value;
+    const customer_email = (document.querySelector("#email") as HTMLInputElement).value;
+    const customer_first_name = (document.querySelector("#firstName") as HTMLInputElement).value;
+    const customer_last_name = (document.querySelector("#lastName") as HTMLInputElement).value;
 
     const sendOrder: orderRequest = {
-      customer: {
-        name,
-        address, 
-        zip,
-        city, 
-        phone,
-        email
-      },
-      order_items: cart.map(item =>({
+        customer_first_name,
+        customer_last_name,
+        customer_address, 
+        customer_postcode,
+        customer_city, 
+        customer_phone,
+        customer_email, 
+        order_items: cart.map(item =>({
         product_id: item.id,
         qty: item.qty, 
         item_price: item.price,
