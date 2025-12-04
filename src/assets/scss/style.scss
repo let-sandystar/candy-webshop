@@ -162,10 +162,12 @@ white-space: nowrap;
 .search-input:focus {
     outline: 2px solid #E9A559;
     outline-offset: 2px;
+    background: #D7758E;
 }
 
 .footer button,
-.checkoutForm button {
+.checkoutForm button,
+.checkout-btn {
     width: 90%; 
     max-width: 300px; 
     padding: 10px; 
@@ -178,8 +180,25 @@ white-space: nowrap;
     margin:10px 0px 20px 0px;
 }
 
+.checkout-btn-wrapper {
+  display: flex; 
+  justify-content: center;
+}
+
+.checkoutForm .btn-primary::after {
+  display:none;
+}
+
+.Checkout {
+  background-color: $dark;
+  color: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+}
+
 .footer button:hover,
-.checkoutForm button:hover {
+.checkoutForm button:hover,
+.checkout-btn:hover {
     transform: scale(1.05);
     border: solid 2px #E9A559;
 }
@@ -281,6 +300,7 @@ white-space: nowrap;
         background-color: rgb(251, 162, 177);
       }
 
+
   @media (min-width: 768px) {
     .navbar {
       flex-wrap: nowrap;
@@ -308,6 +328,112 @@ white-space: nowrap;
   }
 }
 
+.cart-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  letter-spacing: 1px;
+}
+
+table {
+  width: 100%;
+  table-layout: fixed;
+}
+
+table th,
+table td {
+
+  text-align: center;
+  vertical-align: middle;
+}
+
+table th {
+  font-weight: 600;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+table td {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.cart-item-img {
+  max-width: 70px;
+  width: 100%;
+  height: auto;
+  object-fit: contain; 
+  border-radius: 6px;
+  margin-bottom: 0.5rem;
+}
+
+.product-name {
+  font-size: 0.9rem;
+  color: white; 
+  font-weight: 600;
+  margin-top: 0.25rem;  
+}
+
+.cart-quantity-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  gap: 4px;
+}
+
+.form-control {
+  background: transparent;
+  width: 30px;
+  height: 25px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: white;
+  text-align: center;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  padding:0;
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: #E9A559;
+  background: transparent;
+  color: white;
+}
+
+.minus-btn, 
+.plus-btn,
+.delete-btn {
+  background-color: transparent;
+  width: 25px;
+  height: 25px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: white;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  transition: all 0.2s;
+  padding: 0;
+  cursor: pointer;
+}
+
+.minus-btn:hover,
+.plus-btn:hover,
+.delete-btn:hover {
+  background-color: rgba(233, 165, 89, 0.1);
+  color: #E9A559;
+  border-color: #E9A559;
+}
+
+.checkout-btn {
+  border: none;
+  border-radius: 5px;
+  background:#D7758E;
+  letter-spacing: 1px; 
+  color: white;
+  transition: transform 0.2s; 
+}
 
 @media (min-width: 768px) {
   .card {

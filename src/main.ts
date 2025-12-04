@@ -2,8 +2,115 @@ import "./assets/scss/style.scss";
 import { getAllProducts } from "./services/allproducts"
 import { getSingleProduct } from "./services/singleproduct";
 import { BASE } from "./services/allproducts";
+import type { Candy, CartItem, orderPayLoad } from "./services/candy.types";
+import { postOrder } from "./services/postorder";
 
 const container = document.querySelector<HTMLDivElement>("#product-list");
+const cartContainer = document.querySelector<HTMLDivElement>("#cart-items");
+const cartTotalEl = document.querySelector<HTMLTableElement>("#cart-total");
+const form = document.querySelector<HTMLFormElement>("#checkoutForm");
+
+let cart: CartItem[] = [];
+
+function loadCart() {
+  const saved = localStorage.getItem("cart");
+  if (saved) {
+    cart = JSON.parse(saved) as CartItem[];
+  }
+}
+
+function calculateTotal() {
+    return cart.reduce((sum, item) => sum + item.qty * item.candy.price, 0);
+  }
+
+function saveCart() {
+  localStorage.setItem("cart", JSON.stringify(cart));
+  }
+ 
+function renderCart() {
+  if (!cartContainer) return;
+
+  cartContainer.innerHTML = "";
+
+  if (cart.length === 0) {
+    cartContainer.innerHTML = `<tr><td colspan="4" class="text-center">Din varukorg är tom</td></tr>`;
+    return;
+  }
+
+  cart.forEach(item => {
+    const row = document.createElement("tr");
+
+    row.innerHTML = `
+      <td>
+        <img src="${BASE}${item.candy.images.thumbnail}" class="cart-item-img" alt="${item.candy.name}">
+        <div class="product-name">${item.candy.name}</div>
+      </td>
+      <td class="text-center">
+        <div class="cart-quantity-wrapper">
+          <button class="minus-btn" type="button">-</button>
+          <input type="text" class="form-control" value="${item.qty}" readonly>
+          <button class="plus-btn" type="button">+</button>
+        </div>
+      </td>
+      <td class="text-center">${item.candy.price} kr</td>
+      <td class="text-center">${item.qty * item.candy.price} kr</td>
+      <td class="text-center">
+      <button class="delete-btn">
+      <i class="fa-regular fa-trash-can"></i>
+      </button>
+      </td>
+    `;
+
+    if (cartTotalEl) {
+      cartTotalEl.textContent = calculateTotal() + "kr";
+    }
+
+    const minusBtn = row.querySelector<HTMLButtonElement>(".minus-btn");
+    const plusBtn = row.querySelector<HTMLButtonElement>(".plus-btn");
+    
+    minusBtn?.addEventListener("click", () => {
+      if (item.qty > 1) {
+        item.qty--;
+      } else {
+        cart = cart.filter(i => i.candy.id !== item.candy.id);
+      }
+      saveCart();
+      renderCart();
+    });
+
+    plusBtn?.addEventListener("click", () => {
+      item.qty++;
+      saveCart();
+      renderCart();
+    });
+
+    const deleteBtn = row.querySelector<HTMLButtonElement>(".delete-btn");
+    deleteBtn?.addEventListener("click", () => {
+      cart = cart.filter(i => i.candy.id !== item.candy.id);
+        saveCart();
+        renderCart();
+      });
+
+    cartContainer.appendChild(row);
+  });
+}
+
+function addCart(candy: Candy) {
+  const item = cart.find(i => i.candy.id === candy.id);
+  if(item) {
+    item.qty++;
+  } else {
+    cart.push({candy,
+      qty: 1,
+      id: candy.id,
+      price: candy.price,});
+  }
+  saveCart();
+  renderCart();
+}
+
+ loadCart();
+ renderCart();
 
 getAllProducts()
   .then(products => {
@@ -25,8 +132,14 @@ getAllProducts()
       `;
 
       container?.appendChild(card);
+
+      const purchaseButton = card.querySelector<HTMLButtonElement>(".btn-primary");
+      purchaseButton?.addEventListener("click", () => {
+        addCart(product);
     });
-  })
+  });
+})
+
   .catch(error => {
     console.error("Kunde inte hämta produkter:", error);
   });
@@ -69,4 +182,29 @@ const productOverview = async () => {
 };
 
 productOverview();
+
+ //kassans logik
+form?.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const sendOrder: orderPayLoad = {
+      order_items: cart.map(item =>({
+        product_id: item.id,
+        qty: item.qty, 
+        item_price: item.price,
+        item_total: item.price * item.qty,
+      })),
+      order_total: calculateTotal(),
+    };
+
+    try {
+      const orderResult = await postOrder(sendOrder);
+      console.log("Det funkade", orderResult);
+      alert("Din order lyckades, tack för att du har handlat hos oss!")
+    } catch (err) {
+      alert("Hmm något har kraschat");
+      console.error("Det här gick fel", err);
+      throw err;
+    }
+});
 
