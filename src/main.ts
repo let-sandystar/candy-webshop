@@ -91,7 +91,11 @@ function renderCart() {
     });
 
     plusBtn?.addEventListener("click", () => {
+      if (item.qty < item.candy.stock_quantity) {
       item.qty++;
+    } else {
+    alert("Det finns inte fler på lagret. xoxo CandyQueen!")
+  }
       saveCart();
       renderCart();
     });
@@ -109,14 +113,24 @@ function renderCart() {
 
 function addCart(candy: Candy) {
   const item = cart.find(i => i.candy.id === candy.id);
-  if(item) {
+
+  if (item) {
+    if (item.qty < candy.stock_quantity) {
     item.qty++;
   } else {
+    alert("Det finns inte fler på lagret! xoxo CandyQueen");
+  }
+} else {
+  if (candy.stock_quantity > 0) {
     cart.push({candy,
       qty: 1,
       id: candy.id,
-      price: candy.price,});
+      price: candy.price,
+    });
+  } else {
+    alert("Det finns inte fler på lagret. xoxo CandyQueen!")
   }
+}
   saveCart();
   renderCart();
 }
