@@ -14,6 +14,7 @@ const productModal = new Modal(productModalEl);
 const cartContainer = document.querySelector<HTMLDivElement>("#cart-items");
 const cartTotalEl = document.querySelector<HTMLTableElement>("#cart-total");
 const totalTitle = document.querySelector<HTMLTableCellElement>("#total-title");
+const checkoutBtn = document.querySelector<HTMLButtonElement>(".checkout-btn");
 const form = document.querySelector<HTMLFormElement>("#checkoutForm");
 
 //Globala variabler
@@ -42,6 +43,7 @@ function renderCart() {
   if (cart.length === 0) {
     cartContainer.innerHTML = `<tr><td colspan="4" class="text-center">Din varukorg är tom</td></tr>`;
     totalTitle?.classList.add("d-none");
+    checkoutBtn?.classList.add("d-none");
     return;
   }
 
@@ -72,6 +74,7 @@ function renderCart() {
     if (cartTotalEl) {
       cartTotalEl.textContent = calculateTotal() + "kr";
       totalTitle?.classList.remove("d-none");
+      checkoutBtn?.classList.remove("d-none");
     } 
 
     const minusBtn = row.querySelector<HTMLButtonElement>(".minus-btn");
