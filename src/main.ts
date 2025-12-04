@@ -8,6 +8,7 @@ import { postOrder } from "./services/postorder";
 const container = document.querySelector<HTMLDivElement>("#product-list");
 const cartContainer = document.querySelector<HTMLDivElement>("#cart-items");
 const cartTotalEl = document.querySelector<HTMLTableElement>("#cart-total");
+const totalTitle = document.querySelector<HTMLTableCellElement>("#total-title");
 const form = document.querySelector<HTMLFormElement>("#checkoutForm");
 
 let cart: CartItem[] = [];
@@ -34,6 +35,7 @@ function renderCart() {
 
   if (cart.length === 0) {
     cartContainer.innerHTML = `<tr><td colspan="4" class="text-center">Din varukorg är tom</td></tr>`;
+    totalTitle?.classList.add("d-none");
     return;
   }
 
@@ -63,7 +65,8 @@ function renderCart() {
 
     if (cartTotalEl) {
       cartTotalEl.textContent = calculateTotal() + "kr";
-    }
+      totalTitle?.classList.remove("d-none");
+    } 
 
     const minusBtn = row.querySelector<HTMLButtonElement>(".minus-btn");
     const plusBtn = row.querySelector<HTMLButtonElement>(".plus-btn");
