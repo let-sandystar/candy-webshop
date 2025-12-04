@@ -259,6 +259,13 @@ white-space: nowrap;
       font-size: 1.25rem;
       font-weight: 600;
     }
+
+    .card-price {
+      font-size: 1rem;
+      font-weight: 500;
+      color: black;
+      margin-top: 0.25rem;
+    }
   
     .card-text {
       color: #555;
@@ -439,3 +446,4 @@ table td {
     flex: 0 0 calc((100% - 4rem) / 5); 
   }
 }
+

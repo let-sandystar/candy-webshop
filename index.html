@@ -46,7 +46,7 @@
                     </tbody>
                     <tfoot>
                         <tr>
-                            <td colspan="5" class="text-center fw-bold">
+                            <td id="total-title" colspan="5" class="text-center fw-bold">
                               Totalt: <span id="cart-total"></span>
                             </td>
                         </tr>
@@ -54,7 +54,7 @@
                 </table>
             </div>
             <div class="checkout-btn-wrapper">
-            <button class="checkout-btn">Gå vidare till Kassan <i class="fa-regular fa-credit-card"</i></button>
+            <button class="checkout-btn">Gå vidare till Kassan <i class="fa-regular fa-credit-card"></i></button>
           </div>
         </div>
       </div>
@@ -97,6 +97,23 @@
     <div id="product-list"></div>
 
     <div id="app"></div>
+
+   <!-- Modal -->
+<div class="modal fade" id="productModal" tabindex="-1" aria-labelledby="productModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="productModalLabel">Titel på produkt</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body text-center">
+        <img id="modal-image" class="img-fluid mb-3" src="src/assets/images/queen.png" alt="Produktbild">
+        <p id="modal-description"></p>
+        <p id="modal-price" class="fw-bold"></p>
+      </div>
+    </div>
+  </div>
+</div>
 
       <footer class="footer">
 
