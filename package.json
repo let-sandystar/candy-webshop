@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "devDependencies": {
+    "@types/bootstrap": "^5.2.10",
     "bootstrap": "^5.3.8",
     "sass": "1.77.6",
     "typescript": "~5.9.3",

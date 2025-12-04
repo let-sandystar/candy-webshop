@@ -2,6 +2,7 @@ export interface Candy {
     id: number;
     images: ProductImages;
     name: string;
+    description: string;
     on_sale: boolean;
     price: number;
     stock_quantity: number;

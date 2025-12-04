@@ -4,8 +4,12 @@ import { getSingleProduct } from "./services/singleproduct";
 import { BASE } from "./services/allproducts";
 import type { Candy, CartItem, orderPayLoad } from "./services/candy.types";
 import { postOrder } from "./services/postorder";
+import { Modal } from 'bootstrap';
 
 const container = document.querySelector<HTMLDivElement>("#product-list");
+const productModalEl = document.getElementById('productModal')!;
+const productModal = new Modal(productModalEl);
+const descriptionEl = document.getElementById("modal-description") as HTMLElement;
 const cartContainer = document.querySelector<HTMLDivElement>("#cart-items");
 const cartTotalEl = document.querySelector<HTMLTableElement>("#cart-total");
 const form = document.querySelector<HTMLFormElement>("#checkoutForm");
@@ -146,27 +150,24 @@ getAllProducts()
 
   container?.addEventListener("click", (e) => {
     const target = e.target as HTMLElement;
-
+  
     if (target.classList.contains("more-info-btn")) {
       const id = target.dataset.id;
       if(!id) return;
-
+  
       getSingleProduct(id).then(product => {
-        (document.getElementById("popup-title") as HTMLElement).innerText = product.data.name;
-      
-        const tags = product.data.tags.map(tag => tag.name).join(", ");
-        (document.getElementById("popup-description") as HTMLElement).innerText =
-          tags || "Ingen information 😕";
-      
-        (document.getElementById("popup-price") as HTMLElement).innerText =
-          product.data.price + " kr";
+        const modalTitle = document.getElementById("productModalLabel") as HTMLElement;
+      const descriptionEl = document.getElementById("modal-description") as HTMLElement;
+      const modalPrice = document.getElementById("modal-price") as HTMLElement;
+      const modalImage = document.getElementById("modal-image") as HTMLImageElement;
 
-          const popupImage = document.getElementById("popup-image") as HTMLImageElement;
-          popupImage.src = BASE + product.data.images.large;
-          popupImage.alt = product.data.name;
-      
-        document.getElementById("info-popup")?.classList.remove("hidden");
-        document.body.classList.add("no-scroll");
+      modalTitle.innerText = product.data.name;
+      descriptionEl.innerHTML = product.data.description; 
+      modalPrice.innerText = product.data.price + " kr";
+      modalImage.src = BASE + product.data.images.large;
+      modalImage.alt = product.data.name;
+
+      productModal.show();
       });
     }
   });
