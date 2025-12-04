@@ -2,7 +2,7 @@ import "./assets/scss/style.scss";
 import { getAllProducts } from "./services/allproducts"
 import { getSingleProduct } from "./services/singleproduct";
 import { BASE } from "./services/allproducts";
-import type { Candy, CartItem, orderPayLoad } from "./services/candy.types";
+import type { Candy, CartItem, orderRequest, orderResponse } from "./services/candy.types";
 import { postOrder } from "./services/postorder";
 
 const container = document.querySelector<HTMLDivElement>("#product-list");
@@ -154,14 +154,29 @@ productOverview();
 form?.addEventListener("submit", async (e) => {
     e.preventDefault();
 
-    const sendOrder: orderPayLoad = {
+    const name = (document.querySelector("#name") as HTMLInputElement).value;
+    const address = (document.querySelector("#address") as HTMLInputElement).value;
+    const zip = (document.querySelector("#zip") as HTMLInputElement).value;
+    const city = (document.querySelector("#city") as HTMLInputElement).value;
+    const phone = (document.querySelector("#phone") as HTMLInputElement).value;
+    const email = (document.querySelector("#email") as HTMLInputElement).value;
+
+    const sendOrder: orderRequest = {
+      customer: {
+        name,
+        address, 
+        zip,
+        city, 
+        phone,
+        email
+      },
       order_items: cart.map(item =>({
         product_id: item.id,
         qty: item.qty, 
         item_price: item.price,
         item_total: item.price * item.qty,
       })),
-      order_total: calculateTotal(),
+      order_total: calculateTotal()
     };
 
     try {
