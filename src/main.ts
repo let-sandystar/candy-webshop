@@ -11,7 +11,6 @@ import { Modal } from 'bootstrap';
 const container = document.querySelector<HTMLDivElement>("#product-list");
 const productModalEl = document.getElementById('productModal')!;
 const productModal = new Modal(productModalEl);
-const descriptionEl = document.getElementById("modal-description") as HTMLElement;
 const cartContainer = document.querySelector<HTMLDivElement>("#cart-items");
 const cartTotalEl = document.querySelector<HTMLTableElement>("#cart-total");
 const totalTitle = document.querySelector<HTMLTableCellElement>("#total-title");
@@ -162,7 +161,7 @@ getAllProducts()
       if(!id) return;
   
       getSingleProduct(id).then(product => {
-        const modalTitle = document.getElementById("productModalLabel") as HTMLElement;
+      const modalTitle = document.getElementById("productModalLabel") as HTMLElement;
       const descriptionEl = document.getElementById("modal-description") as HTMLElement;
       const modalPrice = document.getElementById("modal-price") as HTMLElement;
       const modalImage = document.getElementById("modal-image") as HTMLImageElement;
