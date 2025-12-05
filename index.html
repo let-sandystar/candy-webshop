@@ -1,35 +1,39 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>fed25-js1-uppgift-2-fed25-js1-inlamningsuppgift-2-grupp-2</title>
-  
-</head>
-  <body>
-    <header class="sticky-top">
-      <nav class="navbar navbar-dark bg-dark justify-content-center">
-        <div>
-          <img src="src/assets/images/logotype.png" alt="candyQueen logotype" class="navbar-logo img-fluid mb-2">
-        </div>
-          <div class="search-nav-wrapper"> 
-            <form>
-              <input id="search-bar" class="search-input" type="search" placeholder="Sök produkt..." aria-label="Search">
-              <button class="btn btn-primary my-2 my-sm-0 me-2" type="submit" aria-label="shopping-cart"><i class="fa-solid fa-cart-shopping" style="color: #ffffff;"></i></button>
-            </form>
-          </div>
-      </nav>
-    </header>
-    
-    <section id="shopping-cart">
-      <div class="container">
-        <div class="row">
 
-      <!--Varukorg-->
-      <div class="col-md-6 mb-3">
-        <div class="card bg-dark text-center">
-        <h3 id="shopping-cart-title">Din varukorg <i class="fa-solid fa-cart-shopping" style="color: #ffffff;"></i></h3>
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>fed25-js1-uppgift-2-fed25-js1-inlamningsuppgift-2-grupp-2</title>
+
+</head>
+
+<body>
+  <header class="sticky-top">
+    <nav class="navbar navbar-dark bg-dark justify-content-center">
+      <div>
+        <img src="src/assets/images/logotype.png" alt="candyQueen logotype" class="navbar-logo img-fluid mb-2">
+      </div>
+      <div class="search-nav-wrapper">
+        <form>
+          <input id="search-bar" class="search-input" type="search" placeholder="Sök produkt..." aria-label="Search">
+          <button class="btn btn-primary my-2 my-sm-0 me-2" type="submit" aria-label="shopping-cart"><i
+              class="fa-solid fa-cart-shopping" style="color: #ffffff;"></i></button>
+        </form>
+      </div>
+    </nav>
+  </header>
+
+  <section id="shopping-cart">
+    <div class="container">
+      <div class="row">
+
+        <!--Varukorg-->
+        <div class="col-md-6 mb-3">
+          <div class="card bg-dark text-center">
+            <h3 id="shopping-cart-title">Din varukorg <i class="fa-solid fa-cart-shopping" style="color: #ffffff;"></i>
+            </h3>
             <!--Titlar-->
             <div class="table-responsive">
                 <table class="table table-dark text-center align-middle">
@@ -54,22 +58,23 @@
                 </table>
             </div>
             <div class="checkout-btn-wrapper">
-            <button class="checkout-btn">Gå vidare till Kassan <i class="fa-regular fa-credit-card"</i></i></button>
+              <button class="checkout-btn">Gå vidare till Kassan <i class="fa-regular fa-credit-card" </i></i></button>
+            </div>
           </div>
         </div>
-      </div>
-      
+
 
 
 
         <!--Formulär-->
-            <div class="col-md-6 mb-3">
-                <div class="Checkout card p-3">
-                    <h2>Dina uppgifter</h2>
-                    <form id="checkoutForm" class="checkoutForm">
-                    <label for="customer_first_name">Förnamn*</label>
-                    <input type="text" id="customer_first_name" class="form-control mb-2" required>
+        <div class="col-md-6 mb-3">
+          <div class="Checkout card p-3">
+            <h2>Dina uppgifter</h2>
+            <form id="checkoutForm" class="checkoutForm">
+              <label for="customer_first_name">Förnamn*</label>
+              <input type="text" id="customer_first_name" class="form-control mb-2" required>
 
+<<<<<<< HEAD
                     <label for="customer_last_name">Efternamn*</label>
                     <input type="text" id="customer_last_name" class="form-control mb-2" required>
                     
@@ -99,52 +104,85 @@
                 <!--Tack för beställning-kort-->
                 <div id="order-container" class="d-none">Tack för beställning</div>
         </section>
+=======
+              <label for="customer_last_name">Efternamn*</label>
+              <input type="text" id="customer_last_name" class="form-control mb-2" required>
+>>>>>>> dev
 
-    <div id="product-list"></div>
+              <label for="customer_address">Adress*</label>
+              <input type="text" id="customer_address" class="form-control mb-2" required>
 
-    <div id="app"></div>
+              <label for="customer_postcode">Postnummer*</label>
+              <input type="text" id="customer_postcode" maxlength="6" class="form-control mb-2" required>
 
-      <footer class="footer">
+              <label for="customer_city">Ort*</label>
+              <input type="text" id="customer_city" class="form-control mb-2" required>
 
-  <div class="footer-logo">
-    <img src="src/assets/images/logotype.png" alt="Candy Queen Logo">
+              <label for="customer_phone">Telefonnummer</label>
+              <input type="text" id="customer_phone" class="form-control mb-2">
+
+              <label for="customer_email">E-mail*</label>
+              <input type="email" id="customer_email" class="form-control mb-2" required>
+
+              <button type="submit" class="btn btn-primary w-100 mt-3">Slutför köp</button>
+            </form>
+          </div>
+          <div id="message" class="mt-2"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div id="count-product-container">
+    <p id="count-product"></p>
   </div>
 
-  <div class="footer-columns">
-    <div class="col-1">
-      <h3>KONTAKT <i class="fa-regular fa-address-card"></i></h3>
-      <a href="#">Om oss</a>
-      <a href="#">Kundservice</a>
-      <a href="mailto:hello@candyqueen.se">hello@candyqueen.se</a>
-      <a href="#">Webshop</a>
+  <div id="product-list"></div>
+
+  <div id="app"></div>
+
+  <footer class="footer">
+
+    <div class="footer-logo">
+      <img src="src/assets/images/logotype.png" alt="Candy Queen Logo">
     </div>
 
-    <div class="col-2">
-      <h3>NYHETSBREV <i class="fa-regular fa-envelope"></i></h3>
-      <form>
-        <input type="email" placeholder="Din e-mail..." required>
-        <button type="submit">Registrera mig</button>
-      </form>
-  </div>
-  
-  <div class="col-3">
-    <h3>FÖLJ OSS <i class="fa-regular fa-heart"></i></h3>
-    <div class="so-me-icons">
-      <a href="#"><i class="fa-brands fa-instagram"></i></a>
-      <a href="#"><i class="fa-brands fa-facebook"></i></a>
-      <a href="#"><i class="fa-brands fa-tiktok"></i></a>
+    <div class="footer-columns">
+      <div class="col-1">
+        <h3>KONTAKT <i class="fa-regular fa-address-card"></i></h3>
+        <a href="#">Om oss</a>
+        <a href="#">Kundservice</a>
+        <a href="mailto:hello@candyqueen.se">hello@candyqueen.se</a>
+        <a href="#">Webshop</a>
+      </div>
+
+      <div class="col-2">
+        <h3>NYHETSBREV <i class="fa-regular fa-envelope"></i></h3>
+        <form>
+          <input type="email" placeholder="Din e-mail..." required>
+          <button type="submit">Registrera mig</button>
+        </form>
+      </div>
+
+      <div class="col-3">
+        <h3>FÖLJ OSS <i class="fa-regular fa-heart"></i></h3>
+        <div class="so-me-icons">
+          <a href="#"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#"><i class="fa-brands fa-facebook"></i></a>
+          <a href="#"><i class="fa-brands fa-tiktok"></i></a>
+        </div>
+      </div>
     </div>
-  </div>
-</div>
 
-<div class="footer-bottom">
-  &copy; 2025 Candy Queen. Alla rättigheter förbehållna.
-</div>
+    <div class="footer-bottom">
+      &copy; 2025 Candy Queen. Alla rättigheter förbehållna.
+    </div>
 
-</footer>
+  </footer>
 
-    <!--Script till fontawesome-ikoner-->
-    <script src="https://kit.fontawesome.com/d94559cafd.js" crossorigin="anonymous"></script>
-    <script type="module" src="/src/main.ts"></script>
-  </body>
+  <!--Script till fontawesome-ikoner-->
+  <script src="https://kit.fontawesome.com/d94559cafd.js" crossorigin="anonymous"></script>
+  <script type="module" src="/src/main.ts"></script>
+</body>
+
 </html>
