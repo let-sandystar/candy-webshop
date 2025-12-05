@@ -3,9 +3,10 @@ import "./assets/scss/style.scss";
 import { getAllProducts } from "./services/allproducts"
 import { getSingleProduct } from "./services/singleproduct";
 import { BASE } from "./services/allproducts";
-import type { Candy, CartItem, orderRequest, OrderResponse, OrderData, Items, CustomerInfo } from "./services/candy.types";
+import type { Candy, CartItem, orderRequest } from "./services/candy.types";
 import { postOrder } from "./services/postorder";
 import { Modal } from 'bootstrap';
+import { renderOrderResponse } from "./services/rendertycard";
 
 //DOM variabler
 const container = document.querySelector<HTMLDivElement>("#product-list");
@@ -185,13 +186,6 @@ getAllProducts()
     document.body.classList.remove("no-scroll");
   });
 
-const productOverview = async () => {
-  const product = await getSingleProduct(5216);
-  console.log(product.data.name, product.data.price);
-};
-
-productOverview();
-
  //kassans logik
 form?.addEventListener("submit", async (e) => {
     e.preventDefault();
@@ -223,13 +217,7 @@ form?.addEventListener("submit", async (e) => {
 
     try {
       const orderResult = await postOrder(sendOrder);
-      console.log("Orderstatus", orderResult.status);
-      console.log("Was ist dis", orderResult.data);
-
-      orderResult.data.items.forEach(item => {
-        console.log(`${item.product_id}`)
-      }); 
-      alert("Din order lyckades, tack för att du har handlat hos oss!")
+      renderOrderResponse(orderResult.data);
     } catch (err) {
       alert("Hmm något har kraschat");
       console.error("Det här gick fel", err);

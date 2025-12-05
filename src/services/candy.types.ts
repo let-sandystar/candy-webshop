@@ -62,7 +62,7 @@ export interface orderRequest extends CustomerInfo{
 
 export interface OrderResponse {
     status: string;
-    data: [];
+    data: OrderData;
 }
 
 export interface OrderData extends CustomerInfo {
