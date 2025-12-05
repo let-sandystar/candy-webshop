@@ -60,7 +60,7 @@ export interface orderRequest extends CustomerInfo{
     order_total: number;
 }
 
-export interface orderResponse {
+export interface OrderResponse {
     status: string;
     data: [];
 }

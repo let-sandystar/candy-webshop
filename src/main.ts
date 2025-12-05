@@ -3,7 +3,7 @@ import "./assets/scss/style.scss";
 import { getAllProducts } from "./services/allproducts"
 import { getSingleProduct } from "./services/singleproduct";
 import { BASE } from "./services/allproducts";
-import type { Candy, CartItem, orderRequest, orderResponse } from "./services/candy.types";
+import type { Candy, CartItem, orderRequest, OrderResponse, OrderData, Items, CustomerInfo } from "./services/candy.types";
 import { postOrder } from "./services/postorder";
 import { Modal } from 'bootstrap';
 
@@ -223,12 +223,16 @@ form?.addEventListener("submit", async (e) => {
 
     try {
       const orderResult = await postOrder(sendOrder);
-      console.log("Det funkade", orderResult);
+      console.log("Orderstatus", orderResult.status);
+      console.log("Was ist dis", orderResult.data);
+
+      orderResult.data.items.forEach(item => {
+        console.log(`${item.product_id}`)
+      }); 
       alert("Din order lyckades, tack för att du har handlat hos oss!")
     } catch (err) {
       alert("Hmm något har kraschat");
       console.error("Det här gick fel", err);
-      throw err;
     }
 });
 
