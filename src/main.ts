@@ -21,24 +21,29 @@ const navCartBtn = document.getElementById("nav-cart-btn") as HTMLButtonElement 
 const cartSection = document.querySelector<HTMLDivElement>(".cart-section");
 const checkoutSection = document.querySelector<HTMLDivElement>(".checkout-section");
 
+const productList = document.getElementById("product-list")
 
 navCartBtn?.addEventListener("click", () => {
   const isOpen = cartSection?.classList.contains("open");
-  if (isOpen) {
+  if(isOpen) {
     cartSection?.classList.remove("open");
-  } else {
-    cartSection?.classList.add("open");
     if (window.innerWidth < 768) {
-      checkoutSection?.classList.remove
-("open");    
-    }
+      productList!.style.display = "flex";
+      }
+    } else {
+      cartSection?.classList.add("open");
+      if (window.innerWidth < 768) {
+        productList!.style.display = "none";
+      }
+        checkoutSection?.classList.remove("open");
   }
 });
-
+ 
 checkoutBtn?.addEventListener("click", () => {
   checkoutSection?.classList.add("open");
   if (window.innerWidth < 768) {
     cartSection?.classList.remove("open");
+    productList!.style.display = "none";
   }
   checkoutSection?.scrollIntoView({ behavior: "smooth" });
 });
@@ -46,6 +51,9 @@ checkoutBtn?.addEventListener("click", () => {
 const closeCheckoutBtn = document.getElementById("close-checkout") as HTMLButtonElement | null;
 closeCheckoutBtn?.addEventListener("click", () => {
   checkoutSection?.classList.remove("open");
+  if (window.innerWidth < 768) {
+    productList!.style.display = "flex";
+  }
 });
 
 
