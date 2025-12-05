@@ -17,6 +17,38 @@ const totalTitle = document.querySelector<HTMLTableCellElement>("#total-title");
 const checkoutBtn = document.querySelector<HTMLButtonElement>(".checkout-btn");
 const form = document.querySelector<HTMLFormElement>("#checkoutForm");
 
+const navCartBtn = document.getElementById("nav-cart-btn") as HTMLButtonElement | null;
+const cartSection = document.querySelector<HTMLDivElement>(".cart-section");
+const checkoutSection = document.querySelector<HTMLDivElement>(".checkout-section");
+
+
+navCartBtn?.addEventListener("click", () => {
+  const isOpen = cartSection?.classList.contains("open");
+  if (isOpen) {
+    cartSection?.classList.remove("open");
+  } else {
+    cartSection?.classList.add("open");
+    if (window.innerWidth < 768) {
+      checkoutSection?.classList.remove
+("open");    
+    }
+  }
+});
+
+checkoutBtn?.addEventListener("click", () => {
+  checkoutSection?.classList.add("open");
+  if (window.innerWidth < 768) {
+    cartSection?.classList.remove("open");
+  }
+  checkoutSection?.scrollIntoView({ behavior: "smooth" });
+});
+
+const closeCheckoutBtn = document.getElementById("close-checkout") as HTMLButtonElement | null;
+closeCheckoutBtn?.addEventListener("click", () => {
+  checkoutSection?.classList.remove("open");
+});
+
+
 //Globala variabler
 let cart: CartItem[] = [];
 

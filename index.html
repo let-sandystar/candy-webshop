@@ -16,7 +16,7 @@
           <div class="search-nav-wrapper"> 
             <form>
               <input id="search-bar" class="search-input" type="search" placeholder="Sök produkt..." aria-label="Search">
-              <button class="btn btn-primary my-2 my-sm-0 me-2" type="submit" aria-label="shopping-cart"><i class="fa-solid fa-cart-shopping" style="color: #ffffff;"></i></button>
+              <button id="nav-cart-btn" class="btn btn-primary my-2 my-sm-0 me-2" type="button" aria-label="shopping-cart"><i class="fa-solid fa-cart-shopping" style="color: #ffffff;"></i></button>
             </form>
           </div>
       </nav>
@@ -27,7 +27,7 @@
         <div class="row">
 
       <!--Varukorg-->
-      <div class="col-md-6 mb-3">
+      <div class="col-md-6 mb-3 cart-section">
         <div class="card bg-dark text-center">
         <h3 id="shopping-cart-title">Din varukorg <i class="fa-solid fa-cart-shopping" style="color: #ffffff;"></i></h3>
             <!--Titlar-->
@@ -63,8 +63,11 @@
 
 
         <!--Formulär-->
-            <div class="col-md-6 mb-3">
+            <div class="col-md-6 mb-3 checkout-section">
                 <div class="Checkout card p-3">
+
+                  <button id="close-checkout" type="button" class="btn btn-link">Stäng</button>
+                  
                     <h2>Dina uppgifter</h2>
                     <form id="checkoutForm" class="checkoutForm">
                     <label for="customer_first_name">Förnamn*</label>
