@@ -16,6 +16,7 @@ const cartTotalEl = document.querySelector<HTMLTableElement>("#cart-total");
 const totalTitle = document.querySelector<HTMLTableCellElement>("#total-title");
 const checkoutBtn = document.querySelector<HTMLButtonElement>(".checkout-btn");
 const form = document.querySelector<HTMLFormElement>("#checkoutForm");
+const countProductEl = document.querySelector<HTMLParagraphElement>("#count-product");
 
 //Globala variabler
 let cart: CartItem[] = [];
@@ -140,6 +141,11 @@ function addCart(candy: Candy) {
 
 getAllProducts()
   .then(products => {
+    if (countProductEl) {
+      if (countProductEl) {
+        countProductEl.textContent = `Visar ${products.data.length} godis`;
+      }
+    }
     products.data.forEach(product => {
 
       const card = document.createElement("div");
