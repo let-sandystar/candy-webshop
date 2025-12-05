@@ -60,11 +60,19 @@ export interface orderRequest extends CustomerInfo{
     order_total: number;
 }
 
-export interface orderResponse {
-    //status: string;
-    //data: [];
-    order_id: number; 
-    message: string;
+export interface OrderResponse {
+    status: string;
+    data: OrderData;
+}
+
+export interface OrderData extends CustomerInfo {
+    id: number;
+    user_id: number;
+    order_date: string;
+    order_total: number;
+    created_at: string;
+    updated_at: string;
+    items: Items[];
 }
 
 export interface CustomerInfo {
@@ -75,5 +83,10 @@ export interface CustomerInfo {
     customer_city: string;
     customer_phone: string; 
     customer_email: string; 
+}
+
+export interface Items extends orderItem {
+    id: number;
+    order_id: number;
 }
 

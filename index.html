@@ -46,7 +46,7 @@
                     </tbody>
                     <tfoot>
                         <tr>
-                            <td colspan="5" class="text-center fw-bold">
+                            <td id="total-title"  colspan="5" class="text-center fw-bold">
                               Totalt: <span id="cart-total"></span>
                             </td>
                         </tr>
@@ -54,11 +54,11 @@
                 </table>
             </div>
             <div class="checkout-btn-wrapper">
-            <button class="checkout-btn">Gå vidare till Kassan <i class="fa-regular fa-credit-card"</i></i></button>
+              <button class="checkout-btn">Gå vidare till Kassan <i class="fa-regular fa-credit-card" </i></i></button>
+            </div>
           </div>
         </div>
-      </div>
-      
+
 
 
 
@@ -98,53 +98,85 @@
                     </div>
                     </div>
                 </div>
+
+                <!--Tack för beställning-kort-->
+                <div id="order-container" class="d-none">Tack för beställning</div>
         </section>
 
-    <div id="product-list"></div>
+              <label for="customer_address">Adress*</label>
+              <input type="text" id="customer_address" class="form-control mb-2" required>
 
-    <div id="app"></div>
+              <label for="customer_postcode">Postnummer*</label>
+              <input type="text" id="customer_postcode" maxlength="6" class="form-control mb-2" required>
 
-      <footer class="footer">
+              <label for="customer_city">Ort*</label>
+              <input type="text" id="customer_city" class="form-control mb-2" required>
 
-  <div class="footer-logo">
-    <img src="src/assets/images/logotype.png" alt="Candy Queen Logo">
+              <label for="customer_phone">Telefonnummer</label>
+              <input type="text" id="customer_phone" class="form-control mb-2">
+
+              <label for="customer_email">E-mail*</label>
+              <input type="email" id="customer_email" class="form-control mb-2" required>
+
+              <button type="submit" class="btn btn-primary w-100 mt-3">Slutför köp</button>
+            </form>
+          </div>
+          <div id="message" class="mt-2"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div id="count-product-container">
+    <p id="count-product"></p>
   </div>
 
-  <div class="footer-columns">
-    <div class="col-1">
-      <h3>KONTAKT <i class="fa-regular fa-address-card"></i></h3>
-      <a href="#">Om oss</a>
-      <a href="#">Kundservice</a>
-      <a href="mailto:hello@candyqueen.se">hello@candyqueen.se</a>
-      <a href="#">Webshop</a>
+  <div id="product-list"></div>
+
+  <div id="app"></div>
+
+  <footer class="footer">
+
+    <div class="footer-logo">
+      <img src="src/assets/images/logotype.png" alt="Candy Queen Logo">
     </div>
 
-    <div class="col-2">
-      <h3>NYHETSBREV <i class="fa-regular fa-envelope"></i></h3>
-      <form>
-        <input type="email" placeholder="Din e-mail..." required>
-        <button type="submit">Registrera mig</button>
-      </form>
-  </div>
-  
-  <div class="col-3">
-    <h3>FÖLJ OSS <i class="fa-regular fa-heart"></i></h3>
-    <div class="so-me-icons">
-      <a href="#"><i class="fa-brands fa-instagram"></i></a>
-      <a href="#"><i class="fa-brands fa-facebook"></i></a>
-      <a href="#"><i class="fa-brands fa-tiktok"></i></a>
+    <div class="footer-columns">
+      <div class="col-1">
+        <h3>KONTAKT <i class="fa-regular fa-address-card"></i></h3>
+        <a href="#">Om oss</a>
+        <a href="#">Kundservice</a>
+        <a href="mailto:hello@candyqueen.se">hello@candyqueen.se</a>
+        <a href="#">Webshop</a>
+      </div>
+
+      <div class="col-2">
+        <h3>NYHETSBREV <i class="fa-regular fa-envelope"></i></h3>
+        <form>
+          <input type="email" placeholder="Din e-mail..." required>
+          <button type="submit">Registrera mig</button>
+        </form>
+      </div>
+
+      <div class="col-3">
+        <h3>FÖLJ OSS <i class="fa-regular fa-heart"></i></h3>
+        <div class="so-me-icons">
+          <a href="#"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#"><i class="fa-brands fa-facebook"></i></a>
+          <a href="#"><i class="fa-brands fa-tiktok"></i></a>
+        </div>
+      </div>
     </div>
-  </div>
-</div>
 
-<div class="footer-bottom">
-  &copy; 2025 Candy Queen. Alla rättigheter förbehållna.
-</div>
+    <div class="footer-bottom">
+      &copy; 2025 Candy Queen. Alla rättigheter förbehållna.
+    </div>
 
-</footer>
+  </footer>
 
-    <!--Script till fontawesome-ikoner-->
-    <script src="https://kit.fontawesome.com/d94559cafd.js" crossorigin="anonymous"></script>
-    <script type="module" src="/src/main.ts"></script>
-  </body>
+  <!--Script till fontawesome-ikoner-->
+  <script src="https://kit.fontawesome.com/d94559cafd.js" crossorigin="anonymous"></script>
+  <script type="module" src="/src/main.ts"></script>
+</body>
+
 </html>

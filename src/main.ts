@@ -3,19 +3,21 @@ import "./assets/scss/style.scss";
 import { getAllProducts } from "./services/allproducts"
 import { getSingleProduct } from "./services/singleproduct";
 import { BASE } from "./services/allproducts";
-import type { Candy, CartItem, orderRequest, orderResponse } from "./services/candy.types";
+import type { Candy, CartItem, orderRequest } from "./services/candy.types";
 import { postOrder } from "./services/postorder";
 import { Modal } from 'bootstrap';
+import { renderOrderResponse } from "./services/rendertycard";
 
 //DOM variabler
 const container = document.querySelector<HTMLDivElement>("#product-list");
 const productModalEl = document.getElementById('productModal')!;
-/* const productModal = new Modal(productModalEl); */
+/* const productModal = new Modal(productModalEl);  */
 const cartContainer = document.querySelector<HTMLDivElement>("#cart-items");
 const cartTotalEl = document.querySelector<HTMLTableElement>("#cart-total");
 const totalTitle = document.querySelector<HTMLTableCellElement>("#total-title");
 const checkoutBtn = document.querySelector<HTMLButtonElement>(".checkout-btn");
 const form = document.querySelector<HTMLFormElement>("#checkoutForm");
+const countProductEl = document.querySelector<HTMLParagraphElement>("#count-product");
 
 const navCartBtn = document.getElementById("nav-cart-btn") as HTMLButtonElement | null;
 const cartSection = document.querySelector<HTMLDivElement>(".cart-section");
@@ -180,6 +182,11 @@ function addCart(candy: Candy) {
 
 getAllProducts()
   .then(products => {
+    if (countProductEl) {
+      if (countProductEl) {
+        countProductEl.textContent = `Visar ${products.data.length} godis`;
+      }
+    }
     products.data.forEach(product => {
 
       const card = document.createElement("div");
@@ -239,13 +246,6 @@ getAllProducts()
     document.body.classList.remove("no-scroll");
   });
 
-const productOverview = async () => {
-  const product = await getSingleProduct(5216);
-  console.log(product.data.name, product.data.price);
-};
-
-productOverview();
-
  //kassans logik
 form?.addEventListener("submit", async (e) => {
     e.preventDefault();
@@ -277,12 +277,10 @@ form?.addEventListener("submit", async (e) => {
 
     try {
       const orderResult = await postOrder(sendOrder);
-      console.log("Det funkade", orderResult);
-      alert("Din order lyckades, tack för att du har handlat hos oss!")
+      renderOrderResponse(orderResult.data);
     } catch (err) {
       alert("Hmm något har kraschat");
       console.error("Det här gick fel", err);
-      throw err;
     }
 });
 
