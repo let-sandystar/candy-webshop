@@ -1,7 +1,7 @@
-import type { orderRequest, orderResponse } from "./candy.types";
+import type { orderRequest, OrderResponse } from "./candy.types";
 const POST = import.meta.env.VITE_API_ORDER_URL;
 
-export async function postOrder(order: orderRequest) : Promise<orderResponse> {
+export async function postOrder(order: orderRequest) : Promise<OrderResponse> {
     const res = await fetch(`${POST}`, {
         method: "POST", 
         headers: {
@@ -14,6 +14,6 @@ export async function postOrder(order: orderRequest) : Promise<orderResponse> {
         throw new Error ("Något gick fel, beställning har ej slutförts!")
     }
 
-    const data: orderResponse = await res.json();
+    const data: OrderResponse = await res.json();
     return data;
 }

@@ -3,19 +3,61 @@ import "./assets/scss/style.scss";
 import { getAllProducts } from "./services/allproducts"
 import { getSingleProduct } from "./services/singleproduct";
 import { BASE } from "./services/allproducts";
-import type { Candy, CartItem, orderRequest, orderResponse } from "./services/candy.types";
+import type { Candy, CartItem, orderRequest } from "./services/candy.types";
 import { postOrder } from "./services/postorder";
 import { Modal } from 'bootstrap';
+import { renderOrderResponse } from "./services/rendertycard";
 
 //DOM variabler
 const container = document.querySelector<HTMLDivElement>("#product-list");
 const productModalEl = document.getElementById('productModal')!;
-/* const productModal = new Modal(productModalEl); */
+/* const productModal = new Modal(productModalEl);  */
 const cartContainer = document.querySelector<HTMLDivElement>("#cart-items");
 const cartTotalEl = document.querySelector<HTMLTableElement>("#cart-total");
 const totalTitle = document.querySelector<HTMLTableCellElement>("#total-title");
 const checkoutBtn = document.querySelector<HTMLButtonElement>(".checkout-btn");
 const form = document.querySelector<HTMLFormElement>("#checkoutForm");
+const countProductEl = document.querySelector<HTMLParagraphElement>("#count-product");
+
+const navCartBtn = document.getElementById("nav-cart-btn") as HTMLButtonElement | null;
+const cartSection = document.querySelector<HTMLDivElement>(".cart-section");
+const checkoutSection = document.querySelector<HTMLDivElement>(".checkout-section");
+
+const productList = document.getElementById("product-list")
+
+navCartBtn?.addEventListener("click", () => {
+  const isOpen = cartSection?.classList.contains("open");
+  if(isOpen) {
+    cartSection?.classList.remove("open");
+    if (window.innerWidth < 768) {
+      productList!.style.display = "flex";
+      }
+    } else {
+      cartSection?.classList.add("open");
+      if (window.innerWidth < 768) {
+        productList!.style.display = "none";
+      }
+        checkoutSection?.classList.remove("open");
+  }
+});
+ 
+checkoutBtn?.addEventListener("click", () => {
+  checkoutSection?.classList.add("open");
+  if (window.innerWidth < 768) {
+    cartSection?.classList.remove("open");
+    productList!.style.display = "none";
+  }
+  checkoutSection?.scrollIntoView({ behavior: "smooth" });
+});
+
+const closeCheckoutBtn = document.getElementById("close-checkout") as HTMLButtonElement | null;
+closeCheckoutBtn?.addEventListener("click", () => {
+  checkoutSection?.classList.remove("open");
+  if (window.innerWidth < 768) {
+    productList!.style.display = "flex";
+  }
+});
+
 
 //Globala variabler
 let cart: CartItem[] = [];
@@ -91,7 +133,11 @@ function renderCart() {
     });
 
     plusBtn?.addEventListener("click", () => {
+      if (item.qty < item.candy.stock_quantity) {
       item.qty++;
+    } else {
+    alert("Det finns inte fler på lagret. xoxo CandyQueen!")
+  }
       saveCart();
       renderCart();
     });
@@ -109,14 +155,24 @@ function renderCart() {
 
 function addCart(candy: Candy) {
   const item = cart.find(i => i.candy.id === candy.id);
-  if(item) {
+
+  if (item) {
+    if (item.qty < candy.stock_quantity) {
     item.qty++;
   } else {
+    alert("Det finns inte fler på lagret! xoxo CandyQueen");
+  }
+} else {
+  if (candy.stock_quantity > 0) {
     cart.push({candy,
       qty: 1,
       id: candy.id,
-      price: candy.price,});
+      price: candy.price,
+    });
+  } else {
+    alert("Det finns inte fler på lagret. xoxo CandyQueen!")
   }
+}
   saveCart();
   renderCart();
 }
@@ -126,6 +182,11 @@ function addCart(candy: Candy) {
 
 getAllProducts()
   .then(products => {
+    if (countProductEl) {
+      if (countProductEl) {
+        countProductEl.textContent = `Visar ${products.data.length} godis`;
+      }
+    }
     products.data.forEach(product => {
 
       const card = document.createElement("div");
@@ -185,13 +246,6 @@ getAllProducts()
     document.body.classList.remove("no-scroll");
   });
 
-const productOverview = async () => {
-  const product = await getSingleProduct(5216);
-  console.log(product.data.name, product.data.price);
-};
-
-productOverview();
-
  //kassans logik
 form?.addEventListener("submit", async (e) => {
     e.preventDefault();
@@ -223,12 +277,10 @@ form?.addEventListener("submit", async (e) => {
 
     try {
       const orderResult = await postOrder(sendOrder);
-      console.log("Det funkade", orderResult);
-      alert("Din order lyckades, tack för att du har handlat hos oss!")
+      renderOrderResponse(orderResult.data);
     } catch (err) {
       alert("Hmm något har kraschat");
       console.error("Det här gick fel", err);
-      throw err;
     }
 });
 
