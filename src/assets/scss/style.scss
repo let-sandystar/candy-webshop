@@ -313,34 +313,6 @@ white-space: nowrap;
         background-color: rgb(251, 162, 177);
       }
 
-
-  @media (min-width: 768px) {
-    .navbar {
-      flex-wrap: nowrap;
-      justify-content: space-between;
-      padding: 0.5rem 1rem;
-    }
-  
-    .navbar-logo {
-      flex-shrink: 0;
-    }
-  
-    .search-nav-wrapper {
-      flex-direction: row;
-      justify-content: flex-end;
-      align-items: center;
-      width: auto;
-      margin-left: auto;
-    }
-  
-    #search-bar {
-      width: auto;
-      max-width: 250px;
-    }    
-   }
-  }
-}
-
 .cart-header {
   display: flex;
   align-items: center;
@@ -471,11 +443,35 @@ table td {
   }
 }
 
-@media (min-width: 768px) {
-  .card {
+  @media (min-width: 768px) {
+    .card {
     flex: 0 0 calc((100% - 3rem) / 4);
   }
- }
+    .navbar {
+      flex-wrap: nowrap;
+      justify-content: space-between;
+      padding: 0.5rem 1rem;
+    }
+  
+    .navbar-logo {
+      flex-shrink: 0;
+    }
+  
+    .search-nav-wrapper {
+      flex-direction: row;
+      justify-content: flex-end;
+      align-items: center;
+      width: auto;
+      margin-left: auto;
+    }
+  
+    #search-bar {
+      width: auto;
+      max-width: 250px;
+    }    
+   }
+  }
+}
 
 @media (min-width: 1204px) {
   .card {
