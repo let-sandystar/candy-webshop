@@ -10,8 +10,8 @@ import { renderOrderResponse } from "./services/rendertycard";
 
 //DOM variabler
 const container = document.querySelector<HTMLDivElement>("#product-list");
-const productModalEl = document.getElementById('productModal')!;
-/* const productModal = new Modal(productModalEl);  */
+const productModalEl = document.getElementById('productModalEl')!;
+const productModal = new Modal(productModalEl);
 const cartContainer = document.querySelector<HTMLDivElement>("#cart-items");
 const cartTotalEl = document.querySelector<HTMLTableElement>("#cart-total");
 const totalTitle = document.querySelector<HTMLTableCellElement>("#total-title");
