@@ -62,7 +62,7 @@ closeCheckoutBtn?.addEventListener("click", () => {
 
 
 //Globala variabler
-let cart: CartItem[] = [];
+export let cart: CartItem[] = [];
 
 function loadCart() {
   const saved = localStorage.getItem("cart");
