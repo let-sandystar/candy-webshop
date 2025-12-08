@@ -177,7 +177,8 @@ white-space: nowrap;
     letter-spacing: 1px; 
     color: white;
     transition: transform 0.2s; 
-    margin:10px 0px 20px 0px;
+    margin:10px auto 20px auto;
+    display: block;
 }
 
 .checkout-btn-wrapper {

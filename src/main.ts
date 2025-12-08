@@ -25,6 +25,8 @@ const checkoutSection = document.querySelector<HTMLDivElement>(".checkout-sectio
 
 const productList = document.getElementById("product-list")
 
+// Varukorgs knapp navbar
+
 navCartBtn?.addEventListener("click", () => {
   const isOpen = cartSection?.classList.contains("open");
   if(isOpen) {
