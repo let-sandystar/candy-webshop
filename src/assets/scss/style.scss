@@ -119,7 +119,7 @@ white-space: nowrap;
     margin-bottom: 10px;
     color: white;
     text-decoration: none;
-    transition: color 0.3ease, transform 0.2 ease;
+    transition: color 0.3s ease, transform 0.2s ease;
     letter-spacing: 1px;;
 }
 
@@ -312,6 +312,8 @@ white-space: nowrap;
       &:hover {
         background-color: rgb(251, 162, 177);
       }
+    }
+  }
 
 .cart-header {
   display: flex;
@@ -470,9 +472,7 @@ table td {
       max-width: 250px;
     }    
    }
-  }
-}
-
+  
 @media (min-width: 1204px) {
   .card {
     flex: 0 0 calc((100% - 4rem) / 5); 
