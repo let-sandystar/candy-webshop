@@ -520,7 +520,10 @@ table td {
 
 .order-card {
   position: relative;
-  padding-top: 3rem;
+  padding: 3rem;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(211, 109, 151, 0.3);
+  border: 1px solid #D7759E;
 }
 
 #close-order {
