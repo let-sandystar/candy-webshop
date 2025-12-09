@@ -31,7 +31,7 @@ const closeCartBtn = document.getElementById("close-cart") as HTMLButtonElement 
 const closeCheckoutBtn = document.getElementById("close-checkout") as HTMLButtonElement | null;
 
 //Globala variabler
-let cart: CartItem[] = [];
+export let cart: CartItem[] = [];
 
 function updateCartCounter() {
   if (!cartCounterEl) return;
@@ -317,14 +317,7 @@ form?.addEventListener("submit", async (e) => {
 
     try {
       const orderResult = await postOrder(sendOrder);
-
-      cart = [];
-      saveCart();
-      renderCart();
-      updateCartCounter();
-      
-      renderOrderResponse(orderResult.data);
-
+      renderOrderResponse(orderResult.data, cart);
     } catch (err) {
       alert("Hmm något har kraschat");
       console.error("Det här gick fel", err);
