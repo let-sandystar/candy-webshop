@@ -77,15 +77,15 @@ function renderCart() {
       </td>
       <td class="text-center">
         <div class="cart-quantity-wrapper">
-          <button class="minus-btn" type="button">-</button>
+          <button class="minus-btn" type="button" aria-label="remove">-</button>
           <input name="number" id="${item.id}" class="form-control" value="${item.qty}" readonly>
-          <button class="plus-btn" type="button">+</button>
+          <button class="plus-btn" type="button" aria-label="add">+</button>
         </div>
       </td>
       <td class="text-center">${item.candy.price} kr</td>
       <td class="text-center">${item.qty * item.candy.price} kr</td>
       <td class="text-center">
-      <button class="delete-btn">
+      <button class="delete-btn" aria-label="delete item button">
       <i class="fa-regular fa-trash-can"></i>
       </button>
       </td>
