@@ -2,10 +2,18 @@ export interface Candy {
     id: number;
     images: ProductImages;
     name: string;
+    description: string;
     on_sale: boolean;
     price: number;
     stock_quantity: number;
     stock_status: string;
+    tags: Tag[];
+}
+
+export interface Tag {
+    id: number;
+    name: string;
+    slug: string;
 }
 
 export interface ProductImages {
@@ -26,4 +34,59 @@ export interface SingleProductResponse {
 export interface CartItem {
     candy: Candy;
     qty: number;
+    id: number;
+    price: number;
+    /* total: number; */
 }
+
+export interface formData {
+    name: string; 
+    address: string;
+    postnr: number;
+    city: string;
+    phone: string;
+    email: string;
+}
+
+export interface orderItem {
+    product_id: number;
+    qty: number;
+    item_price: number;
+    item_total: number;
+}
+
+export interface orderRequest extends CustomerInfo{
+    order_items: orderItem[];
+    order_total: number;
+}
+
+export interface OrderResponse {
+    status: string;
+    data: OrderData;
+}
+
+export interface OrderData extends CustomerInfo {
+    id: number;
+    user_id: number;
+    order_date: string;
+    order_total: number;
+    created_at: string;
+    updated_at: string;
+    items: Items[];
+}
+
+export interface CustomerInfo {
+    customer_first_name: string;
+    customer_last_name: string; 
+    customer_address: string; 
+    customer_postcode: string; 
+    customer_city: string;
+    customer_phone: string; 
+    customer_email: string; 
+}
+
+export interface Items extends orderItem {
+    id: number;
+    order_id: number;
+}
+
