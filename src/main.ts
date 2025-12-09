@@ -317,7 +317,14 @@ form?.addEventListener("submit", async (e) => {
 
     try {
       const orderResult = await postOrder(sendOrder);
+
+      cart = [];
+      saveCart();
+      renderCart();
+      updateCartCounter();
+      
       renderOrderResponse(orderResult.data);
+
     } catch (err) {
       alert("Hmm något har kraschat");
       console.error("Det här gick fel", err);
