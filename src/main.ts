@@ -294,7 +294,7 @@ form?.addEventListener("submit", async (e) => {
 
     try {
       const orderResult = await postOrder(sendOrder);
-      renderOrderResponse(orderResult.data);
+      renderOrderResponse(orderResult.data, cart);
     } catch (err) {
       alert("Hmm något har kraschat");
       console.error("Det här gick fel", err);

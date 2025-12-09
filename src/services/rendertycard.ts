@@ -1,7 +1,7 @@
-import type { OrderData } from "./candy.types";
-import { cart } from "../main";
+import type { CartItem, OrderData } from "./candy.types";
+import { BASE } from "./allproducts";
 
-export function renderOrderResponse(data: OrderData) {
+export function renderOrderResponse(data: OrderData, cart: CartItem[]) {
     const container = document.querySelector<HTMLDivElement>("#order-container")!;
     container!.innerHTML = "";
     container.classList.remove("d-none");
@@ -27,10 +27,10 @@ export function renderOrderResponse(data: OrderData) {
          `; */
 
          if (product) {
-          const thumbnail = (product as any).images?.thumbnail ?? "";
-          const altText = (product as any).name ?? "";
+          const thumbnail: string = product.candy.images.thumbnail ?? "";
+          const altText: string = product.candy.name ?? "";
           li.innerHTML = `
-          ${thumbnail ? `<img src="${thumbnail}" alt="${altText}" />` : ""}
+          <img src="${BASE}${thumbnail}" alt="${altText}" />
           ${item.qty} st à ${item.item_price} kr (Totalt: ${item.item_total} kr)
           `;
          } else {
