@@ -12,7 +12,7 @@ import { renderOrderResponse } from "./services/rendertycard";
 const container = document.querySelector<HTMLDivElement>("#product-list");
 const productModalEl = document.getElementById('productModalEl')!;
 const productModal = new Modal(productModalEl);
-const cartContainer = document.querySelector<HTMLDivElement>("#cart-items");
+const cartContainer = document.querySelector<HTMLTableSectionElement>("#cart-items");
 const cartTotalEl = document.querySelector<HTMLTableElement>("#cart-total");
 const totalTitle = document.querySelector<HTMLTableCellElement>("#total-title");
 const checkoutBtn = document.querySelector<HTMLButtonElement>(".checkout-btn");
@@ -177,6 +177,7 @@ function closeWindow(section: HTMLDivElement | null) {
 }
 
  loadCart();
+ updateCartCounter();
  renderCart();
 
  //Navbar click
@@ -317,6 +318,13 @@ form?.addEventListener("submit", async (e) => {
     try {
       const orderResult = await postOrder(sendOrder);
       renderOrderResponse(orderResult.data, cart);
+
+      cart = [];
+      saveCart();
+      renderCart();
+      updateCartCounter();
+    
+
     } catch (err) {
       alert("Hmm något har kraschat");
       console.error("Det här gick fel", err);
