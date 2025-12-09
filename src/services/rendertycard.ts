@@ -5,7 +5,7 @@ export function renderOrderResponse(data: OrderData, cart: CartItem[]) {
     const container = document.querySelector<HTMLDivElement>("#order-container")!;
     container!.innerHTML = "";
     container.classList.remove("d-none");
-    document.querySelector("#shopping-cart")?.classList.add("d-none"); // dessa funkar inte, glöm inte fixa
+    document.querySelector("#shopping-cart")?.setAttribute("class", "d-none"); 
 
     const card = document.createElement("div");
     card.className = "order-card";
@@ -21,10 +21,6 @@ export function renderOrderResponse(data: OrderData, cart: CartItem[]) {
         data.items.forEach(item => {
         const product = cart.find(p => p.id === item.product_id);
         const li = document.createElement("li");
-        /* li.textContent = `
-        Produkt ${item.product_id}
-         ${item.qty} st à ${item.item_price} kr (Totalt: ${item.item_total} kr)
-         `; */
 
          if (product) {
           const thumbnail: string = product.candy.images.thumbnail ?? "";
