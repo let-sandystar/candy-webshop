@@ -23,6 +23,8 @@ const navCartBtn = document.getElementById("nav-cart-btn") as HTMLButtonElement 
 const cartSection = document.querySelector<HTMLDivElement>(".cart-section");
 const checkoutSection = document.querySelector<HTMLDivElement>(".checkout-section");
 
+const cartCounterEl = document.getElementById("cart-counter") as HTMLSpanElement;
+
 const productList = document.getElementById("product-list")
 const navLogo = document.querySelector<HTMLImageElement>(".navbar-logo");
 const closeCartBtn = document.getElementById("close-cart") as HTMLButtonElement | null;
@@ -30,6 +32,13 @@ const closeCheckoutBtn = document.getElementById("close-checkout") as HTMLButton
 
 //Globala variabler
 export let cart: CartItem[] = [];
+
+function updateCartCounter() {
+  if (!cartCounterEl) return;
+  const totalQty = cart.reduce((sum, item) => sum + item.qty, 0);
+  cartCounterEl.textContent = totalQty > 0 ? totalQty.toString() : '';
+
+}
 
 function loadCart() {
   const saved = localStorage.getItem("cart");
@@ -100,6 +109,7 @@ function renderCart() {
       }
       saveCart();
       renderCart();
+      updateCartCounter();
     });
 
     plusBtn?.addEventListener("click", () => {
@@ -110,12 +120,14 @@ function renderCart() {
   }
       saveCart();
       renderCart();
+      updateCartCounter();
     });
 
     deleteBtn?.addEventListener("click", () => {
       cart = cart.filter(i => i.candy.id !== item.candy.id);
         saveCart();
         renderCart();
+        updateCartCounter();
       });
 
     cartContainer.appendChild(row);
@@ -144,6 +156,16 @@ function addCart(candy: Candy) {
 }
   saveCart();
   renderCart();
+
+  updateCartCounter();
+
+  if (navCartBtn) {
+    navCartBtn.classList.add("active");
+    setTimeout(() => {
+      navCartBtn.classList.remove("active");
+    }, 500); 
+  }
+
 }
 
 //Close window function
