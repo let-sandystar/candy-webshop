@@ -78,7 +78,7 @@ function renderCart() {
       <td class="text-center">
         <div class="cart-quantity-wrapper">
           <button class="minus-btn" type="button">-</button>
-          <input type="text" class="form-control" value="${item.qty}" readonly>
+          <input name="number" id="${item.id}" class="form-control" value="${item.qty}" readonly>
           <button class="plus-btn" type="button">+</button>
         </div>
       </td>
