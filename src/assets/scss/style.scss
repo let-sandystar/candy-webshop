@@ -268,7 +268,36 @@ white-space: nowrap;
 
 #nav-cart-btn {
  position: relative;
+ transition: background-color 0.3s ease;
+
+ &::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 0;
+  height: 2px;
+  background-color: #E9A559;
+  transition: width 0.3s ease;
 }
+
+&.active {
+  background-color: rgba(233, 165, 89, 0.3);
+
+  &::after {
+    width: 100%;
+  }
+}
+
+&:hover {
+  background-color: rgba(233, 165, 89, 0.3);
+
+  &::after {
+    width: 100%;
+  }
+ }
+}
+
 
 #cart-counter {
   top: -5px;   
@@ -283,6 +312,8 @@ white-space: nowrap;
   align-items: center;
   justify-content: center;
 }
+
+
 
 #product-list .card {
   transition: transform 0.2s ease, box-shadow 0.2s ease;

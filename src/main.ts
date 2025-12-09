@@ -159,6 +159,13 @@ function addCart(candy: Candy) {
 
   updateCartCounter();
 
+  if (navCartBtn) {
+    navCartBtn.classList.add("active");
+    setTimeout(() => {
+      navCartBtn.classList.remove("active");
+    }, 500); 
+  }
+
 }
 
 //Close window function
