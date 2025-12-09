@@ -469,6 +469,17 @@ table td {
   }
 }
 
+.order-card {
+  position: relative;
+  padding-top: 3rem;
+}
+
+#close-order {
+  position: absolute;
+  margin-top: 1rem;
+  margin-right: 1rem;
+}
+
 .order-wrapper {
   display: flex;
   justify-content: center;

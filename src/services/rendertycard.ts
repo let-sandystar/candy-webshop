@@ -11,6 +11,17 @@ export function renderOrderResponse(data: OrderData, cart: CartItem[]) {
     const card = document.createElement("div");
     card.className = "order-card";
 
+    const closeOrderBtn = document.createElement("button");
+    closeOrderBtn.className = "btn"
+    closeOrderBtn.classList.add("btn-link", "position-absolute", "top-0", "end-0", "m-2");
+    closeOrderBtn.setAttribute("id", "close-order");
+    closeOrderBtn.innerHTML = `<i class="fa-solid fa-x"></i>`;
+
+    closeOrderBtn.addEventListener("click", () => {
+      container.classList.add("d-none");
+      document.querySelector("#shopping-cart")?.classList.remove("d-none");
+    })
+
     card.innerHTML = `
     <h2>Tack för din beställning ${data.customer_first_name}! 🤍</h2>
     <p>Orderbekräftelse skickas även till din mail: ${data.customer_email}.<br>Hoppas godiset smakar och väkommen åter! xoxo CandyQueen</p>
@@ -44,6 +55,7 @@ export function renderOrderResponse(data: OrderData, cart: CartItem[]) {
 
   card.appendChild(list);
   card.appendChild(total);
+  card.appendChild(closeOrderBtn);
   container.appendChild(card);
 
 }
