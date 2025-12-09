@@ -5,13 +5,15 @@ export function renderOrderResponse(data: OrderData, cart: CartItem[]) {
     const container = document.querySelector<HTMLDivElement>("#order-container")!;
     container!.innerHTML = "";
     container.classList.remove("d-none");
+    container.classList.add("order-wrapper");
     document.querySelector("#shopping-cart")?.setAttribute("class", "d-none"); 
 
     const card = document.createElement("div");
     card.className = "order-card";
 
     card.innerHTML = `
-    <h2>Tack för din beställning ${data.customer_first_name}!</h2>
+    <h2>Tack för din beställning ${data.customer_first_name}! 🤍</h2>
+    <p>Orderbekräftelse skickas även till din mail: ${data.customer_email}.<br>Hoppas godiset smakar och väkommen åter! xoxo CandyQueen</p>
     <p><strong>Ordernummer:</strong> ${data.id}</p>
     <p><strong>Datum:</strong> ${data.order_date}</p>
     <p><strong>Leveransadress:</strong> ${data.customer_address}, ${data.customer_postcode}, ${data.customer_city} </p>
@@ -21,12 +23,13 @@ export function renderOrderResponse(data: OrderData, cart: CartItem[]) {
         data.items.forEach(item => {
         const product = cart.find(p => p.id === item.product_id);
         const li = document.createElement("li");
+        li.classList.add("order-list");
 
          if (product) {
           const thumbnail: string = product.candy.images.thumbnail ?? "";
           const altText: string = product.candy.name ?? "";
           li.innerHTML = `
-          <img src="${BASE}${thumbnail}" alt="${altText}" />
+          <img src="${BASE}${thumbnail}" alt="${altText}" class="order-img"/>
           ${item.qty} st à ${item.item_price} kr (Totalt: ${item.item_total} kr)
           `;
          } else {

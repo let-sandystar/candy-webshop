@@ -469,6 +469,33 @@ table td {
   }
 }
 
+.order-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+}
+
+.order-list {
+  list-style: none;
+  padding: 0px;
+  margin: 0px;
+}
+
+.order-list li {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.order-img {
+  width: 80px;
+  height: auto;
+  margin-right: 1rem;
+  margin-top: 1rem;
+  border-radius: 8px;
+}
+
   @media (min-width: 768px) {
 
     .navbar {
