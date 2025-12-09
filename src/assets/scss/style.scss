@@ -330,7 +330,6 @@ white-space: nowrap;
         font-size: 0.9rem;
     }
 
-  
     .btn-primary {
       background-color: #D7758E;
       border: none;
@@ -375,6 +374,16 @@ table td {
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
+table th:nth-child(2),
+table td:nth-child(2) {
+  width: 150px;
+}
+
+shopping-cart-title {
+  white-space: nowrap;
+  overflow: hidden;
+}
+
 .cart-item-img {
   max-width: 70px;
   width: 100%;
@@ -395,14 +404,14 @@ table td {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100%;
   gap: 4px;
 }
 
 .form-control {
+  flex: 1;
   background: transparent;
-  width: 30px;
-  height: 25px;
+  min-width: 40px;
+  height: 50px;
   border: 1px solid rgba(255, 255, 255, 0.3);
   color: white;
   text-align: center;
@@ -422,8 +431,8 @@ table td {
 .plus-btn,
 .delete-btn {
   background-color: transparent;
-  width: 25px;
-  height: 25px;
+  width: 50px;
+  height: 50px;
   border: 1px solid rgba(255, 255, 255, 0.3);
   color: white;
   font-size: 1rem;
@@ -492,8 +501,8 @@ table td {
   .cart-section {
       position: fixed;
       top: 0%; 
-      right: -400px;
-      width: 400px;
+      right: -500px;
+      width: 500px;
       height: 100vh;
       transition: right 0.5s ease-in-out;
       overflow-y: auto;
@@ -513,7 +522,7 @@ table td {
   
   .cart-section {
  
-    right: -500px;
-    width: 500px;
+    right: -600px;
+    width: 600px;
   }
 }
