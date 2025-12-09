@@ -10,8 +10,8 @@ import { renderOrderResponse } from "./services/rendertycard";
 
 //DOM variabler
 const container = document.querySelector<HTMLDivElement>("#product-list");
-const productModalEl = document.getElementById('productModal')!;
-/* const productModal = new Modal(productModalEl);  */
+const productModalEl = document.getElementById('productModalEl')!;
+const productModal = new Modal(productModalEl);
 const cartContainer = document.querySelector<HTMLDivElement>("#cart-items");
 const cartTotalEl = document.querySelector<HTMLTableElement>("#cart-total");
 const totalTitle = document.querySelector<HTMLTableCellElement>("#total-title");
@@ -24,43 +24,12 @@ const cartSection = document.querySelector<HTMLDivElement>(".cart-section");
 const checkoutSection = document.querySelector<HTMLDivElement>(".checkout-section");
 
 const productList = document.getElementById("product-list")
-
-navCartBtn?.addEventListener("click", () => {
-  const isOpen = cartSection?.classList.contains("open");
-  if(isOpen) {
-    cartSection?.classList.remove("open");
-    if (window.innerWidth < 768) {
-      productList!.style.display = "flex";
-      }
-    } else {
-      cartSection?.classList.add("open");
-      if (window.innerWidth < 768) {
-        productList!.style.display = "none";
-      }
-        checkoutSection?.classList.remove("open");
-  }
-});
- 
-checkoutBtn?.addEventListener("click", () => {
-  checkoutSection?.classList.add("open");
-  if (window.innerWidth < 768) {
-    cartSection?.classList.remove("open");
-    productList!.style.display = "none";
-  }
-  checkoutSection?.scrollIntoView({ behavior: "smooth" });
-});
-
+const navLogo = document.querySelector<HTMLImageElement>(".navbar-logo");
+const closeCartBtn = document.getElementById("close-cart") as HTMLButtonElement | null;
 const closeCheckoutBtn = document.getElementById("close-checkout") as HTMLButtonElement | null;
-closeCheckoutBtn?.addEventListener("click", () => {
-  checkoutSection?.classList.remove("open");
-  if (window.innerWidth < 768) {
-    productList!.style.display = "flex";
-  }
-});
-
 
 //Globala variabler
-let cart: CartItem[] = [];
+export let cart: CartItem[] = [];
 
 function loadCart() {
   const saved = localStorage.getItem("cart");
@@ -121,8 +90,9 @@ function renderCart() {
 
     const minusBtn = row.querySelector<HTMLButtonElement>(".minus-btn");
     const plusBtn = row.querySelector<HTMLButtonElement>(".plus-btn");
-    
-    minusBtn?.addEventListener("click", () => {
+    const deleteBtn = row.querySelector<HTMLButtonElement>(".delete-btn");
+
+     minusBtn?.addEventListener("click", () => {
       if (item.qty > 1) {
         item.qty--;
       } else {
@@ -142,7 +112,6 @@ function renderCart() {
       renderCart();
     });
 
-    const deleteBtn = row.querySelector<HTMLButtonElement>(".delete-btn");
     deleteBtn?.addEventListener("click", () => {
       cart = cart.filter(i => i.candy.id !== item.candy.id);
         saveCart();
@@ -177,16 +146,64 @@ function addCart(candy: Candy) {
   renderCart();
 }
 
+//Close window function
+function closeWindow(section: HTMLDivElement | null) {
+  section?.classList.remove("open");
+  if (window.innerWidth < 768) {
+    productList!.style.display = "flex";
+  }
+}
+
  loadCart();
  renderCart();
+
+ //Navbar click
+navLogo?.addEventListener("click",() => {
+  window.scrollTo({
+    top: 0, 
+    behavior: "smooth"
+  });
+});
+
+//Close window
+closeCartBtn?.addEventListener("click", () =>
+closeWindow(cartSection));
+closeCheckoutBtn?.addEventListener("click", () =>
+closeWindow(checkoutSection));
+
+// Varukorgs knapp navbar
+navCartBtn?.addEventListener("click", () => {
+  const isOpen = cartSection?.classList.contains("open");
+  if(isOpen) {
+    cartSection?.classList.remove("open");
+    if (window.innerWidth < 768) {
+      productList!.style.display = "flex";
+      }
+    } else {
+      cartSection?.classList.add("open");
+      if (window.innerWidth < 768) {
+        productList!.style.display = "none";
+      }
+        checkoutSection?.classList.remove("open");
+  }
+});
+ 
+checkoutBtn?.addEventListener("click", () => {
+  checkoutSection?.classList.add("open");
+  if (window.innerWidth < 768) {
+    cartSection?.classList.remove("open");
+    productList!.style.display = "none";
+  }
+  checkoutSection?.scrollIntoView({ behavior: "smooth" });
+});
+
 
 getAllProducts()
   .then(products => {
     if (countProductEl) {
-      if (countProductEl) {
-        countProductEl.textContent = `Visar ${products.data.length} godis`;
+      countProductEl.textContent = `Visar ${products.data.length} godis`;
       }
-    }
+  
     products.data.forEach(product => {
 
       const card = document.createElement("div");
@@ -277,7 +294,7 @@ form?.addEventListener("submit", async (e) => {
 
     try {
       const orderResult = await postOrder(sendOrder);
-      renderOrderResponse(orderResult.data);
+      renderOrderResponse(orderResult.data, cart);
     } catch (err) {
       alert("Hmm något har kraschat");
       console.error("Det här gick fel", err);
