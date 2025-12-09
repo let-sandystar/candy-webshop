@@ -5,7 +5,7 @@ import { getSingleProduct } from "./services/singleproduct";
 import { BASE } from "./services/allproducts";
 import type { Candy, CartItem, orderRequest } from "./services/candy.types";
 import { postOrder } from "./services/postorder";
-import { Modal } from 'bootstrap';
+import { Modal, Carousel } from 'bootstrap';
 import { renderOrderResponse } from "./services/rendertycard";
 
 //DOM variabler
@@ -30,6 +30,15 @@ const closeCheckoutBtn = document.getElementById("close-checkout") as HTMLButton
 
 //Globala variabler
 export let cart: CartItem[] = [];
+
+const carouselEl = document.querySelector("#candy-carousel");
+if (carouselEl) {
+  const carousel = new Carousel(carouselEl, {
+    interval: 5000,
+    ride: "carousel"
+  });
+}
+
 
 function loadCart() {
   const saved = localStorage.getItem("cart");
