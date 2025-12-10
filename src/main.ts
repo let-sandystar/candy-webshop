@@ -5,7 +5,7 @@ import { getSingleProduct } from "./services/singleproduct";
 import { BASE } from "./services/allproducts";
 import type { Candy, CartItem, orderRequest } from "./services/candy.types";
 import { postOrder } from "./services/postorder";
-import { Modal } from 'bootstrap';
+import { Modal, Carousel } from 'bootstrap';
 import { renderOrderResponse } from "./services/rendertycard";
 
 //DOM variabler
@@ -32,6 +32,15 @@ const closeCheckoutBtn = document.getElementById("close-checkout") as HTMLButton
 
 //Globala variabler
 export let cart: CartItem[] = [];
+
+const carouselEl = document.querySelector("#candy-carousel");
+if (carouselEl) {
+  new Carousel(carouselEl, {
+    interval: 6000,
+    ride: "carousel"
+  });
+}
+
 
 document.querySelectorAll(".search-nav-wrapper form, footer form")
 .forEach(form => {
@@ -324,11 +333,25 @@ form?.addEventListener("submit", async (e) => {
       const orderResult = await postOrder(sendOrder);
       renderOrderResponse(orderResult.data, cart);
 
-      cart = [];
-      saveCart();
-      renderCart();
-      updateCartCounter();
-    
+      const orderContainer = document.getElementById("order-container");
+
+  orderContainer?.addEventListener("click", () => {
+  orderContainer.classList.add("d-none");
+
+  cart = []; 
+  saveCart();
+  renderCart();
+  updateCartCounter();
+
+  cartSection?.classList.remove("open");
+  checkoutSection?.classList.remove("open");
+
+
+  if (productList && window.innerWidth < 768) {
+    productList.style.display = "flex";
+  }
+  form?.reset();
+});
 
     } catch (err) {
       alert("Hmm något har kraschat");
