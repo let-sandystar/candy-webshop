@@ -12,7 +12,7 @@ import { renderOrderResponse } from "./services/rendertycard";
 const container = document.querySelector<HTMLDivElement>("#product-list");
 const productModalEl = document.getElementById('productModalEl')!;
 const productModal = new Modal(productModalEl);
-const cartContainer = document.querySelector<HTMLDivElement>("#cart-items");
+const cartContainer = document.querySelector<HTMLTableSectionElement>("#cart-items");
 const cartTotalEl = document.querySelector<HTMLTableElement>("#cart-total");
 const totalTitle = document.querySelector<HTMLTableCellElement>("#total-title");
 const checkoutBtn = document.querySelector<HTMLButtonElement>(".checkout-btn");
@@ -22,6 +22,8 @@ const countProductEl = document.querySelector<HTMLParagraphElement>("#count-prod
 const navCartBtn = document.getElementById("nav-cart-btn") as HTMLButtonElement | null;
 const cartSection = document.querySelector<HTMLDivElement>(".cart-section");
 const checkoutSection = document.querySelector<HTMLDivElement>(".checkout-section");
+
+const cartCounterEl = document.getElementById("cart-counter") as HTMLSpanElement;
 
 const productList = document.getElementById("product-list")
 const navLogo = document.querySelector<HTMLImageElement>(".navbar-logo");
@@ -39,6 +41,18 @@ if (carouselEl) {
   });
 }
 
+
+document.querySelectorAll(".search-nav-wrapper form, footer form")
+.forEach(form => {
+  form.addEventListener("submit", e => e.preventDefault());
+});
+
+function updateCartCounter() {
+  if (!cartCounterEl) return;
+  const totalQty = cart.reduce((sum, item) => sum + item.qty, 0);
+  cartCounterEl.textContent = totalQty > 0 ? totalQty.toString() : '';
+
+}
 
 function loadCart() {
   const saved = localStorage.getItem("cart");
@@ -77,15 +91,15 @@ function renderCart() {
       </td>
       <td class="text-center">
         <div class="cart-quantity-wrapper">
-          <button class="minus-btn" type="button">-</button>
-          <input type="text" class="form-control" value="${item.qty}" readonly>
-          <button class="plus-btn" type="button">+</button>
+          <button class="minus-btn" type="button" aria-label="remove">-</button>
+          <input name="number" id="${item.id}" class="form-control" value="${item.qty}" readonly>
+          <button class="plus-btn" type="button" aria-label="add">+</button>
         </div>
       </td>
       <td class="text-center">${item.candy.price} kr</td>
       <td class="text-center">${item.qty * item.candy.price} kr</td>
       <td class="text-center">
-      <button class="delete-btn">
+      <button class="delete-btn" aria-label="delete item button">
       <i class="fa-regular fa-trash-can"></i>
       </button>
       </td>
@@ -109,6 +123,7 @@ function renderCart() {
       }
       saveCart();
       renderCart();
+      updateCartCounter();
     });
 
     plusBtn?.addEventListener("click", () => {
@@ -119,12 +134,14 @@ function renderCart() {
   }
       saveCart();
       renderCart();
+      updateCartCounter();
     });
 
     deleteBtn?.addEventListener("click", () => {
       cart = cart.filter(i => i.candy.id !== item.candy.id);
         saveCart();
         renderCart();
+        updateCartCounter();
       });
 
     cartContainer.appendChild(row);
@@ -153,6 +170,16 @@ function addCart(candy: Candy) {
 }
   saveCart();
   renderCart();
+
+  updateCartCounter();
+
+  if (navCartBtn) {
+    navCartBtn.classList.add("active");
+    setTimeout(() => {
+      navCartBtn.classList.remove("active");
+    }, 500); 
+  }
+
 }
 
 //Close window function
@@ -164,6 +191,7 @@ function closeWindow(section: HTMLDivElement | null) {
 }
 
  loadCart();
+ updateCartCounter();
  renderCart();
 
  //Navbar click
@@ -304,6 +332,13 @@ form?.addEventListener("submit", async (e) => {
     try {
       const orderResult = await postOrder(sendOrder);
       renderOrderResponse(orderResult.data, cart);
+
+      cart = [];
+      saveCart();
+      renderCart();
+      updateCartCounter();
+    
+
     } catch (err) {
       alert("Hmm något har kraschat");
       console.error("Det här gick fel", err);
