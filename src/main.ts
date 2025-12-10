@@ -333,11 +333,25 @@ form?.addEventListener("submit", async (e) => {
       const orderResult = await postOrder(sendOrder);
       renderOrderResponse(orderResult.data, cart);
 
-      cart = [];
-      saveCart();
-      renderCart();
-      updateCartCounter();
-    
+      const orderContainer = document.getElementById("order-container");
+
+  orderContainer?.addEventListener("click", () => {
+  orderContainer.classList.add("d-none");
+
+  cart = []; 
+  saveCart();
+  renderCart();
+  updateCartCounter();
+
+  cartSection?.classList.remove("open");
+  checkoutSection?.classList.remove("open");
+
+
+  if (productList && window.innerWidth < 768) {
+    productList.style.display = "flex";
+  }
+  form?.reset();
+});
 
     } catch (err) {
       alert("Hmm något har kraschat");
