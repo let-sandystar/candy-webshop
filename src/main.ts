@@ -324,13 +324,6 @@ form?.addEventListener("submit", async (e) => {
       const orderResult = await postOrder(sendOrder);
       renderOrderResponse(orderResult.data, cart);
 
-<<<<<<< HEAD
-      cart = [];
-      saveCart();
-      renderCart();
-      updateCartCounter();
-    
-=======
       const orderContainer = document.getElementById("order-container");
 
   orderContainer?.addEventListener("click", () => {
@@ -350,7 +343,6 @@ form?.addEventListener("submit", async (e) => {
   }
   form?.reset();
 });
->>>>>>> feature/buttons
 
     } catch (err) {
       alert("Hmm något har kraschat");
