@@ -33,6 +33,11 @@ const closeCheckoutBtn = document.getElementById("close-checkout") as HTMLButton
 //Globala variabler
 export let cart: CartItem[] = [];
 
+document.querySelectorAll(".search-nav-wrapper form, footer form")
+.forEach(form => {
+  form.addEventListener("submit", e => e.preventDefault());
+});
+
 function updateCartCounter() {
   if (!cartCounterEl) return;
   const totalQty = cart.reduce((sum, item) => sum + item.qty, 0);
