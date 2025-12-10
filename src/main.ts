@@ -29,6 +29,7 @@ const productList = document.getElementById("product-list")
 const navLogo = document.querySelector<HTMLImageElement>(".navbar-logo");
 const closeCartBtn = document.getElementById("close-cart") as HTMLButtonElement | null;
 const closeCheckoutBtn = document.getElementById("close-checkout") as HTMLButtonElement | null;
+const newsletterForm = document.querySelector<HTMLFormElement>("footer form");
 
 //Globala variabler
 export let cart: CartItem[] = [];
@@ -36,6 +37,17 @@ export let cart: CartItem[] = [];
 document.querySelectorAll(".search-nav-wrapper form, footer form")
 .forEach(form => {
   form.addEventListener("submit", e => e.preventDefault());
+});
+
+//Meddelande nyhetsbrevet!
+newsletterForm?.addEventListener("submit", (e) => {
+  e.preventDefault();
+  alert("Tack! Du är nu en del av vår sockersöta familj! xoxo CandyQueen 👑");
+
+  const emailInput = newsletterForm.querySelector<HTMLInputElement>("input[type='email']");
+  if (emailInput) {
+    emailInput.value = "";
+  }
 });
 
 function updateCartCounter() {
@@ -121,7 +133,7 @@ function renderCart() {
       if (item.qty < item.candy.stock_quantity) {
       item.qty++;
     } else {
-    alert("Det finns inte fler på lagret. xoxo CandyQueen!")
+    alert("Det finns inte fler på lagret. xoxo CandyQueen 👑")
   }
       saveCart();
       renderCart();
@@ -146,7 +158,7 @@ function addCart(candy: Candy) {
     if (item.qty < candy.stock_quantity) {
     item.qty++;
   } else {
-    alert("Det finns inte fler på lagret! xoxo CandyQueen");
+    alert("Det finns inte fler på lagret! xoxo CandyQueen 👑");
   }
 } else {
   if (candy.stock_quantity > 0) {
@@ -156,7 +168,7 @@ function addCart(candy: Candy) {
       price: candy.price,
     });
   } else {
-    alert("Det finns inte fler på lagret. xoxo CandyQueen!")
+    alert("Det finns inte fler på lagret! xoxo CandyQueen 👑")
   }
 }
   saveCart();
