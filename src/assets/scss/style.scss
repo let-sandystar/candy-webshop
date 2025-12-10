@@ -258,8 +258,8 @@ white-space: nowrap;
 #product-list {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
-  gap: 2rem;
+  justify-content:flex-start;
+  gap: 1rem;
   padding: 1rem;
 }
 
@@ -600,9 +600,19 @@ shopping-cart-title {
     .cart-section.open {
       right: 0;
     }
+    #product-list {
+    justify-content: center;
+    gap: 2rem;
   }
   
 @media (min-width: 1204px) {
+  #product-list {
+    display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+
+  }
   .card {
     flex: 0 0 calc((100% - 4rem) / 5); 
     }
@@ -613,3 +623,4 @@ shopping-cart-title {
     width: 600px;
   }
 }
+  }
