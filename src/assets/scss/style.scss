@@ -131,9 +131,14 @@ white-space: nowrap;
 .footer form {
     display: flex; 
     flex-direction: column;
+    align-items: center;
     color: white;
 }
 
+.footer form label {
+    width: 90%; 
+    padding: 5px; 
+}
 .footer input,
 .search-input {
     padding: 10px; 
@@ -144,6 +149,7 @@ white-space: nowrap;
     border: none;
     width: 90%; 
     max-width: 300px; 
+    height: 40px;
 }
 
 .checkoutForm input {
@@ -155,6 +161,7 @@ white-space: nowrap;
   min-width:0;
   height: 2rem;
   text-align: left;
+  padding: 10px;
 }
 
 .checkoutForm .form-row {
@@ -298,7 +305,6 @@ white-space: nowrap;
  }
 }
 
-
 #cart-counter {
   top: -5px;   
   right: -10px;    
@@ -312,8 +318,6 @@ white-space: nowrap;
   align-items: center;
   justify-content: center;
 }
-
-
 
 #product-list .card {
   transition: transform 0.2s ease, box-shadow 0.2s ease;
@@ -372,7 +376,6 @@ white-space: nowrap;
         font-size: 0.9rem;
     }
 
-  
     .btn-primary {
       background-color: #D7758E;
       border: none;
@@ -417,6 +420,16 @@ table td {
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
+table th:nth-child(2),
+table td:nth-child(2) {
+  width: 150px;
+}
+
+shopping-cart-title {
+  white-space: nowrap;
+  overflow: hidden;
+}
+
 .cart-item-img {
   max-width: 70px;
   width: 100%;
@@ -437,14 +450,14 @@ table td {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100%;
   gap: 4px;
 }
 
 .form-control {
+  flex: 1;
   background: transparent;
-  width: 30px;
-  height: 25px;
+  min-width: 40px;
+  height: 50px;
   border: 1px solid rgba(255, 255, 255, 0.3);
   color: white;
   text-align: center;
@@ -464,8 +477,8 @@ table td {
 .plus-btn,
 .delete-btn {
   background-color: transparent;
-  width: 25px;
-  height: 25px;
+  width: 50px;
+  height: 50px;
   border: 1px solid rgba(255, 255, 255, 0.3);
   color: white;
   font-size: 1rem;
@@ -520,7 +533,10 @@ table td {
 
 .order-card {
   position: relative;
-  padding-top: 3rem;
+  padding: 3rem;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(211, 109, 151, 0.3);
+  border: 1px solid #D7759E;
 }
 
 #close-order {
@@ -572,8 +588,8 @@ table td {
   .cart-section {
       position: fixed;
       top: 0%; 
-      right: -400px;
-      width: 400px;
+      right: -500px;
+      width: 500px;
       height: 100vh;
       transition: right 0.5s ease-in-out;
       overflow-y: auto;
@@ -593,7 +609,7 @@ table td {
   
   .cart-section {
  
-    right: -500px;
-    width: 500px;
+    right: -600px;
+    width: 600px;
   }
 }

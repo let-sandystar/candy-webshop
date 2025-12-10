@@ -33,6 +33,11 @@ const closeCheckoutBtn = document.getElementById("close-checkout") as HTMLButton
 //Globala variabler
 export let cart: CartItem[] = [];
 
+document.querySelectorAll(".search-nav-wrapper form, footer form")
+.forEach(form => {
+  form.addEventListener("submit", e => e.preventDefault());
+});
+
 function updateCartCounter() {
   if (!cartCounterEl) return;
   const totalQty = cart.reduce((sum, item) => sum + item.qty, 0);
@@ -77,15 +82,15 @@ function renderCart() {
       </td>
       <td class="text-center">
         <div class="cart-quantity-wrapper">
-          <button class="minus-btn" type="button">-</button>
-          <input type="text" class="form-control" value="${item.qty}" readonly>
-          <button class="plus-btn" type="button">+</button>
+          <button class="minus-btn" type="button" aria-label="remove">-</button>
+          <input name="number" id="${item.id}" class="form-control" value="${item.qty}" readonly>
+          <button class="plus-btn" type="button" aria-label="add">+</button>
         </div>
       </td>
       <td class="text-center">${item.candy.price} kr</td>
       <td class="text-center">${item.qty * item.candy.price} kr</td>
       <td class="text-center">
-      <button class="delete-btn">
+      <button class="delete-btn" aria-label="delete item button">
       <i class="fa-regular fa-trash-can"></i>
       </button>
       </td>
@@ -318,6 +323,13 @@ form?.addEventListener("submit", async (e) => {
     try {
       const orderResult = await postOrder(sendOrder);
       renderOrderResponse(orderResult.data, cart);
+
+      cart = [];
+      saveCart();
+      renderCart();
+      updateCartCounter();
+    
+
     } catch (err) {
       alert("Hmm något har kraschat");
       console.error("Det här gick fel", err);
