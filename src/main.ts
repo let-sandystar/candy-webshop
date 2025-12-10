@@ -36,7 +36,7 @@ export let cart: CartItem[] = [];
 const carouselEl = document.querySelector("#candy-carousel");
 if (carouselEl) {
   const carousel = new Carousel(carouselEl, {
-    interval: 5000,
+    interval: 6000,
     ride: "carousel"
   });
 }
