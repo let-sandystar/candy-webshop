@@ -20,7 +20,7 @@
         <form>
           <input id="search-bar" class="search-input" type="search" placeholder="Sök produkt..." aria-label="Search">
           <button id="nav-cart-btn" class="btn btn-primary my-2 my-sm-0 me-2" type="button"
-            aria-label="shopping-cart"><i class="fa-solid fa-cart-shopping" style="color: #ffffff;"></i>
+            aria-label="shopping cart button"><i class="fa-solid fa-cart-shopping" style="color: #ffffff;"></i>
           <span id="cart-counter">0</span>
           </button>
         </form>
@@ -38,7 +38,7 @@
             <h3 id="shopping-cart-title">Din varukorg <i class="fa-solid fa-cart-shopping" style="color: #ffffff;"></i>
             </h3>
 
-            <button id="close-cart" class="btn btn-link position-absolute top-0 end-0 m-2">
+            <button id="close-cart" class="btn btn-link position-absolute top-0 end-0 m-2" aria-label="close cart button">
               <i class="fa-solid fa-x"></i>
             </button>
 
@@ -71,53 +71,49 @@
             </button>
           </div>
         </div>
-         <div class="search-nav-wrapper"> 
-            <form>
-              <input id="search-bar" class="search-input" type="search" placeholder="Sök produkt..." aria-label="Search product">
-              <button class="btn btn-primary my-2 my-sm-0 me-2" type="submit" aria-label="shopping-cart"><i class="fa-solid fa-cart-shopping" style="color: #ffffff;"></i></button>
 
         <!--Formulär-->
         <div class="col-md-6 mb-3 checkout-section">
           <div class="Checkout card p-3">
             
-            <button id="close-checkout" class="btn btn-link position-absolute top-0 end-0 m-2">
+            <button id="close-checkout" class="btn btn-link position-absolute top-0 end-0 m-2" aria-label="close checkout form button">
               <i class="fa-solid fa-x"></i>
             </button>
 
             <h2>Dina uppgifter</h2>
-            <form id="checkoutForm" class="checkoutForm">
+            <form id="checkoutForm" class="checkoutForm" autocomplete="off">
               <div class="form-row">
                 <div class="form-group">
                   <label for="customer_first_name">Förnamn*</label>
-                  <input type="text" id="customer_first_name" class="form-control" required>
+                  <input type="text" id="customer_first_name" class="form-control" autocomplete="off" required>
                 </div>
                 
                 <div class="form-group">
                   <label for="customer_last_name">Efternamn*</label>
-                  <input type="text" id="customer_last_name" class="form-control" required>
+                  <input type="text" id="customer_last_name" class="form-control" autocomplete="off" required>
                 </div>
               </div>
 
               <label for="customer_address">Adress*</label>
-              <input type="text" id="customer_address" class="form-control mb-2" required>
+              <input type="text" id="customer_address" class="form-control mb-2" autocomplete="off" required>
             
               <div class="form-row">
                 <div class="form-group">
               <label for="customer_postcode">Postnummer*</label>
-              <input type="text" id="customer_postcode" maxlength="6" class="form-control" required>
+              <input type="text" id="customer_postcode" maxlength="6" class="form-control" autocomplete="off" required>
             </div>
             
             <div class="form-group">
               <label for="customer_city">Ort*</label>
-              <input type="text" id="customer_city" class="form-control" required>
+              <input type="text" id="customer_city" class="form-control" autocomplete="off" required>
             </div>
           </div>
 
               <label for="customer_phone">Telefonnummer</label>
-              <input type="text" id="customer_phone" class="form-control mb-2">
+              <input type="text" id="customer_phone" class="form-control" mb-2 autocomplete="off">
 
               <label for="customer_email">E-mail*</label>
-              <input type="email" id="customer_email" class="form-control mb-2" required>
+              <input type="email" id="customer_email" class="form-control" mb-2 autocomplete="off" required>
 
               <button type="submit" class="btn btn-primary w-100 mt-3">Slutför köp</button>
             </form>
@@ -176,7 +172,8 @@
       <div class="col-2">
         <h3>NYHETSBREV <i class="fa-regular fa-envelope"></i></h3>
         <form>
-          <input type="email" placeholder="Din e-mail..." required>
+          <label for="email">E-mail:</label>
+          <input name="email" id="email" placeholder="dinmail@email.se" required type="email" autocomplete="off"/>
           <button type="submit">Registrera mig</button>
         </form>
       </div>

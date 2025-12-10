@@ -15,6 +15,7 @@ export function renderOrderResponse(data: OrderData, cart: CartItem[]) {
     closeOrderBtn.className = "btn"
     closeOrderBtn.classList.add("btn-link", "position-absolute", "top-0", "end-0", "m-2");
     closeOrderBtn.setAttribute("id", "close-order");
+    closeOrderBtn.setAttribute("aria-label", "close order confirmation button");
     closeOrderBtn.innerHTML = `<i class="fa-solid fa-x"></i>`;
 
     closeOrderBtn.addEventListener("click", () => {
