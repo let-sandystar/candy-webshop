@@ -523,16 +523,15 @@ shopping-cart-title {
 }
 
 #count-product-container {
-  max-width: calc(100% - 2rem);
-  margin: 0 auto 1rem auto;
-  text-align: right; 
+  display:flex;
+  justify-content: center;
+  width: 100%;
 }
 
 #count-product {
-  display: inline-block;
-  position: relative;
   color: #ffdef2;
-  margin-bottom: 0rem;
+  margin: 0 auto;
+  text-align: center;
 
   &::after {
     content: "";
@@ -616,7 +615,6 @@ shopping-cart-title {
     justify-content: center;
     gap: 2rem;
    }
-
   }
   
 @media (min-width: 1204px) {

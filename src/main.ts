@@ -42,9 +42,9 @@ if (carouselEl) {
 }
 
 document.querySelectorAll(".search-nav-wrapper form, footer form")
-.forEach(form => {
-  form.addEventListener("submit", e => e.preventDefault());
-});
+  .forEach(form => {
+    form.addEventListener("submit", e => e.preventDefault());
+  });
 //Alertmeddelande nyhetsbrev samt sökformulär!
 document.querySelectorAll<HTMLFormElement>(".search-nav-wrapper form, footer form")
   .forEach(form => {
@@ -211,10 +211,7 @@ renderCart();
 
 //Navbar click
 navLogo?.addEventListener("click", () => {
-  window.scrollTo({
-    top: 0,
-    behavior: "smooth"
-  });
+  window.location.href = "index.html";
 });
 
 //Close window
@@ -233,6 +230,11 @@ navCartBtn?.addEventListener("click", () => {
     }
   } else {
     cartSection?.classList.add("open");
+
+    cartSection?.scrollIntoView({
+      behavior: "smooth"
+    });
+
     if (window.innerWidth < 768) {
       productList!.style.display = "none";
     }
@@ -246,18 +248,20 @@ checkoutBtn?.addEventListener("click", () => {
     cartSection?.classList.remove("open");
     productList!.style.display = "none";
   }
-  checkoutSection?.scrollIntoView({ behavior: "smooth" });
+  checkoutSection?.scrollIntoView({
+    behavior: "smooth",
+    block: "start"
+  });
 });
-
 
 getAllProducts()
   .then(products => {
     if (countProductEl) {
-      countProductEl.textContent = `Visar ${products.data.length} godis`;
+      const inStock = products.data.filter(p => p.stock_status === "instock").length;
+      countProductEl.textContent = `Visar ${products.data.length} godis, varav totalt ${inStock} st finns i lager`;
     }
 
     products.data.forEach(product => {
-
       const card = document.createElement("div");
       card.classList.add("card");
 
@@ -315,61 +319,61 @@ document.getElementById("popup-close")?.addEventListener("click", () => {
   document.body.classList.remove("no-scroll");
 });
 
- //kassans logik
+//kassans logik
 form?.addEventListener("submit", async (e) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    const customer_address = (document.querySelector("#customer_address") as HTMLInputElement).value;
-    const customer_postcode = (document.querySelector("#customer_postcode") as HTMLInputElement).value;
-    const customer_city = (document.querySelector("#customer_city") as HTMLInputElement).value;
-    const customer_phone = (document.querySelector("#customer_phone") as HTMLInputElement).value;
-    const customer_email = (document.querySelector("#customer_email") as HTMLInputElement).value;
-    const customer_first_name = (document.querySelector("#customer_first_name") as HTMLInputElement).value;
-    const customer_last_name = (document.querySelector("#customer_last_name") as HTMLInputElement).value;
+  const customer_address = (document.querySelector("#customer_address") as HTMLInputElement).value;
+  const customer_postcode = (document.querySelector("#customer_postcode") as HTMLInputElement).value;
+  const customer_city = (document.querySelector("#customer_city") as HTMLInputElement).value;
+  const customer_phone = (document.querySelector("#customer_phone") as HTMLInputElement).value;
+  const customer_email = (document.querySelector("#customer_email") as HTMLInputElement).value;
+  const customer_first_name = (document.querySelector("#customer_first_name") as HTMLInputElement).value;
+  const customer_last_name = (document.querySelector("#customer_last_name") as HTMLInputElement).value;
 
-    const sendOrder: orderRequest = {
-        customer_first_name,
-        customer_last_name,
-        customer_address, 
-        customer_postcode,
-        customer_city, 
-        customer_phone,
-        customer_email, 
-        order_items: cart.map(item =>({
-        product_id: item.id,
-        qty: item.qty, 
-        item_price: item.price,
-        item_total: item.price * item.qty,
-      })),
-      order_total: calculateTotal()
-    };
+  const sendOrder: orderRequest = {
+    customer_first_name,
+    customer_last_name,
+    customer_address,
+    customer_postcode,
+    customer_city,
+    customer_phone,
+    customer_email,
+    order_items: cart.map(item => ({
+      product_id: item.id,
+      qty: item.qty,
+      item_price: item.price,
+      item_total: item.price * item.qty,
+    })),
+    order_total: calculateTotal()
+  };
 
-    try {
-      const orderResult = await postOrder(sendOrder);
-      renderOrderResponse(orderResult.data, cart);
+  try {
+    const orderResult = await postOrder(sendOrder);
+    renderOrderResponse(orderResult.data, cart);
 
-      const orderContainer = document.getElementById("order-container");
+    const orderContainer = document.getElementById("order-container");
 
-  orderContainer?.addEventListener("click", () => {
-  orderContainer.classList.add("d-none");
+    orderContainer?.addEventListener("click", () => {
+      orderContainer.classList.add("d-none");
 
-  cart = []; 
-  saveCart();
-  renderCart();
-  updateCartCounter();
+      cart = [];
+      saveCart();
+      renderCart();
+      updateCartCounter();
 
-  cartSection?.classList.remove("open");
-  checkoutSection?.classList.remove("open");
+      cartSection?.classList.remove("open");
+      checkoutSection?.classList.remove("open");
 
 
-  if (productList && window.innerWidth < 768) {
-    productList.style.display = "flex";
+      if (productList && window.innerWidth < 768) {
+        productList.style.display = "flex";
+      }
+      form?.reset();
+    });
+
+  } catch (err) {
+    alert("Hmm något har kraschat");
+    console.error("Det här gick fel", err);
   }
-  form?.reset();
-});
-
-    } catch (err) {
-      alert("Hmm något har kraschat");
-      console.error("Det här gick fel", err);
-    }
 });
