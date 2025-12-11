@@ -311,12 +311,7 @@ container?.addEventListener("click", (e) => {
         ? "I lager: " + product.data.stock_quantity + "st"
         : "Tyvärr, slut i lager";
 
-      /* if(product.data.on_sale === true) {
-      sale.innerText = "Nedsatt pris, passa på!";
-      } else {
-        sale.innerText ="";
-      } */
-
+        
       sale.innerText = product.data.on_sale
       ? "Nedsatt pris, passa på!"
       : "";
