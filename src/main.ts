@@ -254,7 +254,10 @@ getAllProducts()
   .then(products => {
     if (countProductEl) {
       countProductEl.textContent = `Visar ${products.data.length} godis`;
-    }
+      }
+
+    //sortera efter produktnamn
+    products.data.sort((a, b) => a.name.localeCompare(b.name));
 
     products.data.forEach(product => {
 
