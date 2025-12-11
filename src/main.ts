@@ -298,9 +298,11 @@ container?.addEventListener("click", (e) => {
       const descriptionEl = document.getElementById("modal-description") as HTMLElement;
       const modalPrice = document.getElementById("modal-price") as HTMLElement;
       const modalImage = document.getElementById("modal-image") as HTMLImageElement;
+      const stockQty = document.getElementById("stock-qty") as HTMLElement;
 
       modalTitle.innerText = product.data.name;
       descriptionEl.innerHTML = product.data.description;
+      stockQty.innerText = "I lager: " + product.data.stock_quantity.toString() + "st";
       modalPrice.innerText = product.data.price + " kr";
       modalImage.src = BASE + product.data.images.large;
       modalImage.alt = product.data.name;
