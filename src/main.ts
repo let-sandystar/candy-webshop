@@ -243,6 +243,7 @@ navCartBtn?.addEventListener("click", () => {
 });
 
 checkoutBtn?.addEventListener("click", () => {
+  cartSection?.classList.remove('open');
   checkoutSection?.classList.add("open");
   if (window.innerWidth < 768) {
     cartSection?.classList.remove("open");
