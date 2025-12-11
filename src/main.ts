@@ -299,14 +299,28 @@ container?.addEventListener("click", (e) => {
       const modalPrice = document.getElementById("modal-price") as HTMLElement;
       const modalImage = document.getElementById("modal-image") as HTMLImageElement;
       const stockQty = document.getElementById("stock-qty") as HTMLElement;
+      const sale = document.getElementById("sale") as HTMLElement;
 
       modalTitle.innerText = product.data.name;
       descriptionEl.innerHTML = product.data.description;
-      stockQty.innerText = "I lager: " + product.data.stock_quantity.toString() + "st";
       modalPrice.innerText = product.data.price + " kr";
       modalImage.src = BASE + product.data.images.large;
       modalImage.alt = product.data.name;
 
+      stockQty.innerText = product.data.stock_quantity > 0 
+        ? "I lager: " + product.data.stock_quantity + "st"
+        : "Tyvärr, slut i lager";
+
+      /* if(product.data.on_sale === true) {
+      sale.innerText = "Nedsatt pris, passa på!";
+      } else {
+        sale.innerText ="";
+      } */
+
+      sale.innerText = product.data.on_sale
+      ? "Nedsatt pris, passa på!"
+      : "";
+      
       productModal.show();
     });
   }
