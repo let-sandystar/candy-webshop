@@ -244,6 +244,7 @@ navCartBtn?.addEventListener("click", () => {
 
 checkoutBtn?.addEventListener("click", () => {
   checkoutSection?.classList.add("open");
+  carouselEl?.classList.add("d-none");
   if (window.innerWidth < 768) {
     cartSection?.classList.remove("open");
     productList!.style.display = "none";
@@ -383,6 +384,7 @@ form?.addEventListener("submit", async (e) => {
 
       cartSection?.classList.remove("open");
       checkoutSection?.classList.remove("open");
+      carouselEl?.classList.remove("d-none");
 
 
       if (productList && window.innerWidth < 768) {
