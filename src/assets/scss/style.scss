@@ -588,16 +588,9 @@ shopping-cart-title {
 
   @media (min-width: 768px) {
 
-    .navbar {
-      flex-direction: row; 
-      justify-content: space-between;
-      gap: 2rem; 
-      padding: 0 2rem; 
-    }
-
-    .carousel-item img {
-      height: 600px;
-    }
+  .carousel-item img {
+    height: 600px;
+  }
 
   .card {
     flex: 0 0 calc((100% - 3rem) / 4);
