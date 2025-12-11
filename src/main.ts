@@ -314,9 +314,12 @@ container?.addEventListener("click", (e) => {
         ? "I lager: " + product.data.stock_quantity + "st"
         : "Tyvärr, slut i lager";
 
-        
+      stockQty.className = product.data.stock_quantity > 10 ? "bg-success"
+      : product.data.stock_quantity > 5 ? "bg-warning"
+      : "bg-danger";
+
       sale.innerText = product.data.on_sale
-      ? "Nedsatt pris, passa på!"
+      ? "Nedsatt pris, passa på!😍"
       : "";
       
       productModal.show();
