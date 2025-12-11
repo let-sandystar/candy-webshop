@@ -5,7 +5,7 @@ import { getSingleProduct } from "./services/singleproduct";
 import { BASE } from "./services/allproducts";
 import type { Candy, CartItem, orderRequest } from "./services/candy.types";
 import { postOrder } from "./services/postorder";
-import { Modal } from 'bootstrap';
+import { Modal, Carousel } from 'bootstrap';
 import { renderOrderResponse } from "./services/rendertycard";
 
 //DOM variabler
@@ -33,10 +33,33 @@ const closeCheckoutBtn = document.getElementById("close-checkout") as HTMLButton
 //Globala variabler
 export let cart: CartItem[] = [];
 
+const carouselEl = document.querySelector("#candy-carousel");
+if (carouselEl) {
+  new Carousel(carouselEl, {
+    interval: 6000,
+    ride: "carousel"
+  });
+}
+
 document.querySelectorAll(".search-nav-wrapper form, footer form")
 .forEach(form => {
   form.addEventListener("submit", e => e.preventDefault());
 });
+//Alertmeddelande nyhetsbrev samt sökformulär!
+document.querySelectorAll<HTMLFormElement>(".search-nav-wrapper form, footer form")
+  .forEach(form => {
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+
+      if (form.closest("footer")) {
+        alert("Tack! Du är nu en del av vår sockersöta familj! xoxo CandyQueen 👑");
+      }
+      else {
+        alert("Sökfunktionen är under konstruktion, men godiset är redo att rädda dagen! xoxo CandyQueen 👑");
+      }
+      form.reset();
+    });
+  });
 
 function updateCartCounter() {
   if (!cartCounterEl) return;
@@ -53,13 +76,13 @@ function loadCart() {
 }
 
 function calculateTotal() {
-    return cart.reduce((sum, item) => sum + item.qty * item.candy.price, 0);
-  }
+  return cart.reduce((sum, item) => sum + item.qty * item.candy.price, 0);
+}
 
 function saveCart() {
   localStorage.setItem("cart", JSON.stringify(cart));
-  }
- 
+}
+
 function renderCart() {
   if (!cartContainer) return;
 
@@ -100,13 +123,13 @@ function renderCart() {
       cartTotalEl.textContent = calculateTotal() + "kr";
       totalTitle?.classList.remove("d-none");
       checkoutBtn?.classList.remove("d-none");
-    } 
+    }
 
     const minusBtn = row.querySelector<HTMLButtonElement>(".minus-btn");
     const plusBtn = row.querySelector<HTMLButtonElement>(".plus-btn");
     const deleteBtn = row.querySelector<HTMLButtonElement>(".delete-btn");
 
-     minusBtn?.addEventListener("click", () => {
+    minusBtn?.addEventListener("click", () => {
       if (item.qty > 1) {
         item.qty--;
       } else {
@@ -119,10 +142,10 @@ function renderCart() {
 
     plusBtn?.addEventListener("click", () => {
       if (item.qty < item.candy.stock_quantity) {
-      item.qty++;
-    } else {
-    alert("Det finns inte fler på lagret. xoxo CandyQueen!")
-  }
+        item.qty++;
+      } else {
+        alert("Det finns inte fler på lagret. xoxo CandyQueen 👑")
+      }
       saveCart();
       renderCart();
       updateCartCounter();
@@ -130,10 +153,10 @@ function renderCart() {
 
     deleteBtn?.addEventListener("click", () => {
       cart = cart.filter(i => i.candy.id !== item.candy.id);
-        saveCart();
-        renderCart();
-        updateCartCounter();
-      });
+      saveCart();
+      renderCart();
+      updateCartCounter();
+    });
 
     cartContainer.appendChild(row);
   });
@@ -144,21 +167,22 @@ function addCart(candy: Candy) {
 
   if (item) {
     if (item.qty < candy.stock_quantity) {
-    item.qty++;
+      item.qty++;
+    } else {
+      alert("Det finns inte fler på lagret! xoxo CandyQueen 👑");
+    }
   } else {
-    alert("Det finns inte fler på lagret! xoxo CandyQueen");
+    if (candy.stock_quantity > 0) {
+      cart.push({
+        candy,
+        qty: 1,
+        id: candy.id,
+        price: candy.price,
+      });
+    } else {
+      alert("Det finns inte fler på lagret! xoxo CandyQueen 👑")
+    }
   }
-} else {
-  if (candy.stock_quantity > 0) {
-    cart.push({candy,
-      qty: 1,
-      id: candy.id,
-      price: candy.price,
-    });
-  } else {
-    alert("Det finns inte fler på lagret. xoxo CandyQueen!")
-  }
-}
   saveCart();
   renderCart();
 
@@ -168,7 +192,7 @@ function addCart(candy: Candy) {
     navCartBtn.classList.add("active");
     setTimeout(() => {
       navCartBtn.classList.remove("active");
-    }, 500); 
+    }, 500);
   }
 
 }
@@ -181,41 +205,41 @@ function closeWindow(section: HTMLDivElement | null) {
   }
 }
 
- loadCart();
- updateCartCounter();
- renderCart();
+loadCart();
+updateCartCounter();
+renderCart();
 
- //Navbar click
-navLogo?.addEventListener("click",() => {
+//Navbar click
+navLogo?.addEventListener("click", () => {
   window.scrollTo({
-    top: 0, 
+    top: 0,
     behavior: "smooth"
   });
 });
 
 //Close window
 closeCartBtn?.addEventListener("click", () =>
-closeWindow(cartSection));
+  closeWindow(cartSection));
 closeCheckoutBtn?.addEventListener("click", () =>
-closeWindow(checkoutSection));
+  closeWindow(checkoutSection));
 
 // Varukorgs knapp navbar
 navCartBtn?.addEventListener("click", () => {
   const isOpen = cartSection?.classList.contains("open");
-  if(isOpen) {
+  if (isOpen) {
     cartSection?.classList.remove("open");
     if (window.innerWidth < 768) {
       productList!.style.display = "flex";
-      }
-    } else {
-      cartSection?.classList.add("open");
-      if (window.innerWidth < 768) {
-        productList!.style.display = "none";
-      }
-        checkoutSection?.classList.remove("open");
+    }
+  } else {
+    cartSection?.classList.add("open");
+    if (window.innerWidth < 768) {
+      productList!.style.display = "none";
+    }
+    checkoutSection?.classList.remove("open");
   }
 });
- 
+
 checkoutBtn?.addEventListener("click", () => {
   checkoutSection?.classList.add("open");
   if (window.innerWidth < 768) {
@@ -230,11 +254,16 @@ getAllProducts()
   .then(products => {
     if (countProductEl) {
       countProductEl.textContent = `Visar ${products.data.length} godis`;
+<<<<<<< HEAD
       }
 
       //sortera efter produktnamn
       products.data.sort((a, b) => a.name.localeCompare(b.name));
   
+=======
+    }
+
+>>>>>>> origin/dev
     products.data.forEach(product => {
 
       const card = document.createElement("div");
@@ -257,42 +286,42 @@ getAllProducts()
       const purchaseButton = card.querySelector<HTMLButtonElement>(".btn-primary");
       purchaseButton?.addEventListener("click", () => {
         addCart(product);
+      });
     });
-  });
-})
+  })
 
   .catch(error => {
     console.error("Kunde inte hämta produkter:", error);
   });
 
-  container?.addEventListener("click", (e) => {
-    const target = e.target as HTMLElement;
-  
-    if (target.classList.contains("more-info-btn")) {
-      const id = target.dataset.id;
-      if(!id) return;
-  
-      getSingleProduct(id).then(product => {
+container?.addEventListener("click", (e) => {
+  const target = e.target as HTMLElement;
+
+  if (target.classList.contains("more-info-btn")) {
+    const id = target.dataset.id;
+    if (!id) return;
+
+    getSingleProduct(id).then(product => {
       const modalTitle = document.getElementById("productModalLabel") as HTMLElement;
       const descriptionEl = document.getElementById("modal-description") as HTMLElement;
       const modalPrice = document.getElementById("modal-price") as HTMLElement;
       const modalImage = document.getElementById("modal-image") as HTMLImageElement;
 
       modalTitle.innerText = product.data.name;
-      descriptionEl.innerHTML = product.data.description; 
+      descriptionEl.innerHTML = product.data.description;
       modalPrice.innerText = product.data.price + " kr";
       modalImage.src = BASE + product.data.images.large;
       modalImage.alt = product.data.name;
 
       productModal.show();
-      });
-    }
-  });
+    });
+  }
+});
 
-  document.getElementById("popup-close")?.addEventListener("click", () => {
-    document.getElementById("info-popup")?.classList.add("hidden");
-    document.body.classList.remove("no-scroll");
-  });
+document.getElementById("popup-close")?.addEventListener("click", () => {
+  document.getElementById("info-popup")?.classList.add("hidden");
+  document.body.classList.remove("no-scroll");
+});
 
  //kassans logik
 form?.addEventListener("submit", async (e) => {
@@ -327,15 +356,28 @@ form?.addEventListener("submit", async (e) => {
       const orderResult = await postOrder(sendOrder);
       renderOrderResponse(orderResult.data, cart);
 
-      cart = [];
-      saveCart();
-      renderCart();
-      updateCartCounter();
-    
+      const orderContainer = document.getElementById("order-container");
+
+  orderContainer?.addEventListener("click", () => {
+  orderContainer.classList.add("d-none");
+
+  cart = []; 
+  saveCart();
+  renderCart();
+  updateCartCounter();
+
+  cartSection?.classList.remove("open");
+  checkoutSection?.classList.remove("open");
+
+
+  if (productList && window.innerWidth < 768) {
+    productList.style.display = "flex";
+  }
+  form?.reset();
+});
 
     } catch (err) {
       alert("Hmm något har kraschat");
       console.error("Det här gick fel", err);
     }
 });
-
