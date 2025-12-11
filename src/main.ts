@@ -261,6 +261,9 @@ getAllProducts()
       countProductEl.textContent = `Visar ${products.data.length} godis, varav totalt ${inStock} st finns i lager`;
     }
 
+    //sortera efter produktnamn
+    products.data.sort((a, b) => a.name.localeCompare(b.name));
+
     products.data.forEach(product => {
       const card = document.createElement("div");
       card.classList.add("card");
@@ -302,6 +305,8 @@ container?.addEventListener("click", (e) => {
       const descriptionEl = document.getElementById("modal-description") as HTMLElement;
       const modalPrice = document.getElementById("modal-price") as HTMLElement;
       const modalImage = document.getElementById("modal-image") as HTMLImageElement;
+      const stockQty = document.getElementById("stock-qty") as HTMLElement;
+      const sale = document.getElementById("sale") as HTMLElement;
 
       modalTitle.innerText = product.data.name;
       descriptionEl.innerHTML = product.data.description;
@@ -309,6 +314,18 @@ container?.addEventListener("click", (e) => {
       modalImage.src = BASE + product.data.images.large;
       modalImage.alt = product.data.name;
 
+      stockQty.innerText = product.data.stock_quantity > 0 
+        ? "I lager: " + product.data.stock_quantity + "st"
+        : "Tyvärr, slut i lager";
+
+      stockQty.className = product.data.stock_quantity > 10 ? "bg-success"
+      : product.data.stock_quantity > 5 ? "bg-warning"
+      : "bg-danger";
+
+      sale.innerText = product.data.on_sale
+      ? "Nedsatt pris, passa på!😍"
+      : "";
+      
       productModal.show();
     });
   }

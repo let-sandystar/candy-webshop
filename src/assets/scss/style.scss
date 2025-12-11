@@ -585,6 +585,32 @@ shopping-cart-title {
   border-radius: 8px;
 }
 
+#stock-qty {
+  display: inline;
+  padding: 8px;
+  border-radius: 8px;
+  color: #fff;
+}
+
+#stock-qty.bg-warning {
+  color: black;
+}
+
+#sale {
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 8px;
+  background-color: $dark;
+  color: #fff;
+  font-weight: bold;
+  animation: blink 1.2s infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.9; transform: scale(1.05); }
+}
+
   @media (min-width: 768px) {
 
   .carousel-item img {
