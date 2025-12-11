@@ -315,7 +315,7 @@ container?.addEventListener("click", (e) => {
       modalImage.alt = product.data.name;
 
       stockQty.innerText = product.data.stock_quantity > 0 
-        ? "I lager: " + product.data.stock_quantity + "st"
+        ? "I lager: " + product.data.stock_quantity
         : "Tyvärr, slut i lager";
 
       stockQty.className = product.data.stock_quantity > 10 ? "bg-success"
@@ -325,6 +325,8 @@ container?.addEventListener("click", (e) => {
       sale.innerText = product.data.on_sale
       ? "Nedsatt pris, passa på!😍"
       : "";
+
+      sale.classList[product.data.on_sale ? "remove" : "add"]("d-none");
       
       productModal.show();
     });
