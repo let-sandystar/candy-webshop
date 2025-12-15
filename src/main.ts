@@ -29,7 +29,7 @@ const productList = document.getElementById("product-list")
 const navLogo = document.querySelector<HTMLImageElement>(".navbar-logo");
 const closeCartBtn = document.getElementById("close-cart") as HTMLButtonElement | null;
 const closeCheckoutBtn = document.getElementById("close-checkout") as HTMLButtonElement | null;
-
+const header = document.querySelector<HTMLElement>("header");
 //Globala variabler
 export let cart: CartItem[] = [];
 
@@ -203,6 +203,9 @@ function closeWindow(section: HTMLDivElement | null) {
   if (window.innerWidth < 768) {
     productList!.style.display = "flex";
   }
+  if (section === cartSection || section === checkoutSection) {
+    header?.classList.add("sticky-top");
+  }
 }
 
 loadCart();
@@ -224,21 +227,16 @@ closeCheckoutBtn?.addEventListener("click", () =>
 navCartBtn?.addEventListener("click", () => {
   const isOpen = cartSection?.classList.contains("open");
   if (isOpen) {
-    cartSection?.classList.remove("open");
-    if (window.innerWidth < 768) {
-      productList!.style.display = "flex";
-    }
-  } else {
+    closeWindow(cartSection);
+    } else {
     cartSection?.classList.add("open");
-
-    cartSection?.scrollIntoView({
-      behavior: "smooth"
-    });
-
+    header?.classList.remove("sticky-top");
+    cartSection?.scrollIntoView({ behavior: "smooth" });
+    
     if (window.innerWidth < 768) {
       productList!.style.display = "none";
+      checkoutSection?.classList.remove("open");
     }
-    checkoutSection?.classList.remove("open");
   }
 });
 
@@ -246,14 +244,14 @@ checkoutBtn?.addEventListener("click", () => {
   cartSection?.classList.remove('open');
   checkoutSection?.classList.add("open");
   carouselEl?.classList.add("d-none");
+
+  header?.classList.remove("sticky-top");
+
   if (window.innerWidth < 768) {
     cartSection?.classList.remove("open");
     productList!.style.display = "none";
   }
-  checkoutSection?.scrollIntoView({
-    behavior: "smooth",
-    block: "start"
-  });
+  checkoutSection?.scrollIntoView({ behavior: "smooth", block: "start"});
 });
 
 getAllProducts()
