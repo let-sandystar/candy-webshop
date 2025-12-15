@@ -13,14 +13,13 @@ const container = document.querySelector<HTMLDivElement>("#product-list");
 const productModalEl = document.getElementById('productModalEl')!;
 const productModal = new Modal(productModalEl);
 const cartContainer = document.querySelector<HTMLTableSectionElement>("#cart-items");
-const cartTotalEl = document.querySelector<HTMLTableElement>("#cart-total");
-const totalTitle = document.querySelector<HTMLTableCellElement>("#total-title");
 const checkoutBtn = document.querySelector<HTMLButtonElement>(".checkout-btn");
 const form = document.querySelector<HTMLFormElement>("#checkoutForm");
 const countProductEl = document.querySelector<HTMLParagraphElement>("#count-product");
 const navCartBtn = document.getElementById("nav-cart-btn") as HTMLButtonElement | null;
 const cartSection = document.querySelector<HTMLDivElement>(".cart-section");
 const checkoutSection = document.querySelector<HTMLDivElement>(".checkout-section");
+const orderContainer = document.getElementById("order-container") as HTMLElement | null;
 const cartCounterEl = document.getElementById("cart-counter") as HTMLSpanElement;
 const productList = document.getElementById("product-list")
 const navLogo = document.querySelector<HTMLImageElement>(".navbar-logo");
@@ -80,6 +79,8 @@ function saveCart() {
 }
 
 function renderCart() {
+  const cartTotalEl = document.querySelector<HTMLTableElement>("#cart-total");
+  const totalTitle = document.querySelector<HTMLTableCellElement>("#total-title");
   if (!cartContainer) return;
 
   cartContainer.innerHTML = "";
@@ -339,6 +340,7 @@ document.getElementById("popup-close")?.addEventListener("click", () => {
 //Place order logic
 form?.addEventListener("submit", async (e) => {
   e.preventDefault();
+  closeWindow(checkoutSection);
 
   const customer_address = (document.querySelector("#customer_address") as HTMLInputElement).value;
   const customer_postcode = (document.querySelector("#customer_postcode") as HTMLInputElement).value;
@@ -369,8 +371,6 @@ form?.addEventListener("submit", async (e) => {
     const orderResult = await postOrder(sendOrder);
     renderOrderResponse(orderResult.data, cart);
 
-    const orderContainer = document.getElementById("order-container");
-
     orderContainer?.addEventListener("click", () => {
       orderContainer.classList.add("d-none");
 
@@ -379,10 +379,7 @@ form?.addEventListener("submit", async (e) => {
       renderCart();
       updateCartCounter();
 
-      cartSection?.classList.remove("open");
-      checkoutSection?.classList.remove("open");
       carouselEl?.classList.remove("d-none");
-
 
       if (productList && window.innerWidth < 768) {
         productList.style.display = "flex";
