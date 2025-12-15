@@ -1,4 +1,4 @@
-//Importer
+//Imports
 import "./assets/scss/style.scss";
 import { getAllProducts } from "./services/allproducts"
 import { getSingleProduct } from "./services/singleproduct";
@@ -8,7 +8,7 @@ import { postOrder } from "./services/postorder";
 import { Modal, Carousel } from 'bootstrap';
 import { renderOrderResponse } from "./services/rendertycard";
 
-//DOM variabler
+//DOM variables
 const container = document.querySelector<HTMLDivElement>("#product-list");
 const productModalEl = document.getElementById('productModalEl')!;
 const productModal = new Modal(productModalEl);
@@ -18,21 +18,20 @@ const totalTitle = document.querySelector<HTMLTableCellElement>("#total-title");
 const checkoutBtn = document.querySelector<HTMLButtonElement>(".checkout-btn");
 const form = document.querySelector<HTMLFormElement>("#checkoutForm");
 const countProductEl = document.querySelector<HTMLParagraphElement>("#count-product");
-
 const navCartBtn = document.getElementById("nav-cart-btn") as HTMLButtonElement | null;
 const cartSection = document.querySelector<HTMLDivElement>(".cart-section");
 const checkoutSection = document.querySelector<HTMLDivElement>(".checkout-section");
-
 const cartCounterEl = document.getElementById("cart-counter") as HTMLSpanElement;
-
 const productList = document.getElementById("product-list")
 const navLogo = document.querySelector<HTMLImageElement>(".navbar-logo");
 const closeCartBtn = document.getElementById("close-cart") as HTMLButtonElement | null;
 const closeCheckoutBtn = document.getElementById("close-checkout") as HTMLButtonElement | null;
 const header = document.querySelector<HTMLElement>("header");
-//Globala variabler
+
+//Global variables
 export let cart: CartItem[] = [];
 
+//Start carousel + timer
 const carouselEl = document.querySelector("#candy-carousel");
 if (carouselEl) {
   new Carousel(carouselEl, {
@@ -41,11 +40,7 @@ if (carouselEl) {
   });
 }
 
-document.querySelectorAll(".search-nav-wrapper form, footer form")
-  .forEach(form => {
-    form.addEventListener("submit", e => e.preventDefault());
-  });
-//Alertmeddelande nyhetsbrev samt sökformulär!
+//Prevent unused forms to refresh browser
 document.querySelectorAll<HTMLFormElement>(".search-nav-wrapper form, footer form")
   .forEach(form => {
     form.addEventListener("submit", (e) => {
@@ -61,6 +56,7 @@ document.querySelectorAll<HTMLFormElement>(".search-nav-wrapper form, footer for
     });
   });
 
+//Cart logic - shouldve been its own file but its too big to move out now
 function updateCartCounter() {
   if (!cartCounterEl) return;
   const totalQty = cart.reduce((sum, item) => sum + item.qty, 0);
@@ -212,18 +208,12 @@ loadCart();
 updateCartCounter();
 renderCart();
 
-//Navbar click
+//Navlogo
 navLogo?.addEventListener("click", () => {
   window.location.href = "index.html";
 });
 
-//Close window
-closeCartBtn?.addEventListener("click", () =>
-  closeWindow(cartSection));
-closeCheckoutBtn?.addEventListener("click", () =>
-  closeWindow(checkoutSection));
-
-// Varukorgs knapp navbar
+//Cart button logic
 navCartBtn?.addEventListener("click", () => {
   const isOpen = cartSection?.classList.contains("open");
   if (isOpen) {
@@ -254,6 +244,14 @@ checkoutBtn?.addEventListener("click", () => {
   checkoutSection?.scrollIntoView({ behavior: "smooth", block: "start"});
 });
 
+//Close window
+closeCartBtn?.addEventListener("click", () =>
+  closeWindow(cartSection));
+closeCheckoutBtn?.addEventListener("click", () =>
+  closeWindow(checkoutSection));
+//Cart logic ended
+
+//Render products, all and single logic starting here
 getAllProducts()
   .then(products => {
     if (countProductEl) {
@@ -261,7 +259,7 @@ getAllProducts()
       countProductEl.textContent = `Visar ${products.data.length} godis, varav totalt ${inStock} st finns i lager`;
     }
 
-    //sortera efter produktnamn
+    //Sort products alphabetically
     products.data.sort((a, b) => a.name.localeCompare(b.name));
 
     products.data.forEach(product => {
@@ -336,9 +334,9 @@ container?.addEventListener("click", (e) => {
 document.getElementById("popup-close")?.addEventListener("click", () => {
   document.getElementById("info-popup")?.classList.add("hidden");
   document.body.classList.remove("no-scroll");
-});
+}); //Product view logic ended
 
-//kassans logik
+//Place order logic
 form?.addEventListener("submit", async (e) => {
   e.preventDefault();
 
