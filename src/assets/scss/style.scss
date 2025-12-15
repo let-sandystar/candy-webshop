@@ -19,15 +19,15 @@ body {
 .navbar {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   padding: 0.5rem 1rem;
-  gap: 1rem;
+  gap: 1.5rem;
 }
 
 .navbar-logo {
-  max-width: 100px;
+  max-width: 120px;
   display: block;
-  margin: 0px auto;
+  margin: 0px;
 }
 
 .search-nav-wrapper {
@@ -40,10 +40,14 @@ body {
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  margin: 0;
 }
 
 #search-bar {
   height: 40px;
+  margin: 0;
+  padding: 0 10px;
+  box-sizing: border-box;
 }
 
 #nav-cart-btn {
@@ -88,23 +92,27 @@ body {
 
 /*carousel*/
 #carousel {
-  max-width: 100vw;
-  height: auto;
-  margin: 0.5rem auto;
+width: 100%;
+max-width: 1400px;
+margin: 0.5rem auto 1rem auto;
 }
 
 .carousel-item img {
-  height: 400px;
+  height: auto;
   width: 100%;
+  height: auto;
+  object-fit: cover;
 }
 
 /*product list*/
 #product-list {
   display: flex;
   flex-wrap: wrap;
-  justify-content: flex-start;
+  justify-content: center;
   gap: 1rem;
-  padding: 1rem;
+  padding: 0.5rem 1rem 1rem 1rem;
+  margin: 0 auto 2rem auto; 
+  max-width: calc(5 * 260px + 4 * 2rem);
 }
 
 #product-list .card {
@@ -153,6 +161,7 @@ body {
 
 .card {
   flex: 0 0 calc(50% - 0.5rem);
+  max-width: 260px;
   margin-bottom: 1rem;
   border-radius: 12px;
   overflow: hidden;
@@ -278,6 +287,31 @@ h3 {
   justify-content: center;
   gap: 4px;
 }
+.minus-btn,
+.plus-btn,
+.delete-btn {
+  background-color: transparent;
+  width: 50px;
+  height: 50px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: white;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  transition: all 0.2s;
+  padding: 0;
+  cursor: pointer;
+}
+
+.minus-btn:hover,
+.plus-btn:hover,
+.delete-btn:hover {
+  background-color: rgba(233, 165, 89, 0.1);
+  color: #E9A559;
+  border-color: #E9A559;
+}
 
 /*Checkout section*/
 .Checkout {
@@ -357,32 +391,6 @@ h2 {
   border-color: #E9A559;
   background: transparent;
   color: white;
-}
-
-.minus-btn,
-.plus-btn,
-.delete-btn {
-  background-color: transparent;
-  width: 50px;
-  height: 50px;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  color: white;
-  font-size: 1rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 4px;
-  transition: all 0.2s;
-  padding: 0;
-  cursor: pointer;
-}
-
-.minus-btn:hover,
-.plus-btn:hover,
-.delete-btn:hover {
-  background-color: rgba(233, 165, 89, 0.1);
-  color: #E9A559;
-  border-color: #E9A559;
 }
 
 .checkout-btn {
@@ -643,13 +651,9 @@ h2 {
 }
 
 @media (min-width: 768px) {
-
-  .carousel-item img {
-    height: 600px;
-  }
-
-  .card {
-    flex: 0 0 calc((100% - 3rem) / 4);
+  #carousel {
+    width: 80%;
+    margin: 1rem auto; 
   }
 
   .cart-section {
@@ -667,30 +671,9 @@ h2 {
   .cart-section.open {
     right: 0;
   }
-
-  #product-list {
-    justify-content: center;
-    gap: 2rem;
-  }
 }
 
 @media (min-width: 1204px) {
-  #product-list {
-    justify-content: center;
-    gap: 2rem;
-  }
-
-  .card {
-    flex: 0 0 calc((100% - 4rem) / 5);
-  }
-
-  #carousel {
-    max-width: 80vw;
-  }
-
-  .carousel-item img {
-    height: 800px;
-  }
 
   .cart-section {
     right: -600px;
