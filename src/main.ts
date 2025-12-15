@@ -254,16 +254,11 @@ getAllProducts()
   .then(products => {
     if (countProductEl) {
       countProductEl.textContent = `Visar ${products.data.length} godis`;
-<<<<<<< HEAD
       }
 
       //sortera efter produktnamn
       products.data.sort((a, b) => a.name.localeCompare(b.name));
   
-=======
-    }
-
->>>>>>> origin/dev
     products.data.forEach(product => {
 
       const card = document.createElement("div");
