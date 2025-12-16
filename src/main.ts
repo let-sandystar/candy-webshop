@@ -271,13 +271,21 @@ getAllProducts()
         <img class="card-img-top" src="${BASE}${product.images.thumbnail}" alt="${product.name}">
         <div class="card-body">
           <h5 class="card-title">${product.name}</h5>
-          <p class="card-price">${product.price} kr</p>
+          <p class="card-price">${product.price}kr/skopa</p>
+          <p class="card-sale">${product.on_sale}</p>
         </div>
         <div class="card-footer">
           <button class="btn btn-primary">Köp</button>
           <button class="btn btn-secondary more-info-btn" data-id=${product.id}>Mer info</button>
         </div>
       `;
+
+      const saleEl = card.querySelector<HTMLParagraphElement>(".card-sale");
+      saleEl!.innerText = product.on_sale === true
+      ? "Nedsatt pris, passa på!"
+      : "";
+
+      saleEl!.classList[product.on_sale ? "remove" : "add"]("d-none");
 
       container?.appendChild(card);
 
@@ -322,7 +330,7 @@ container?.addEventListener("click", (e) => {
       : "bg-danger";
 
       sale.innerText = product.data.on_sale
-      ? "Nedsatt pris, passa på!😍"
+      ? "Nedsatt pris, passa på!"
       : "";
 
       sale.classList[product.data.on_sale ? "remove" : "add"]("d-none");
