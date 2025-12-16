@@ -257,7 +257,7 @@ getAllProducts()
   .then(products => {
     if (countProductEl) {
       const inStock = products.data.filter(p => p.stock_status === "instock").length;
-      countProductEl.textContent = `Visar ${products.data.length} godis, varav totalt ${inStock} st finns i lager`;
+      countProductEl.textContent = `Visar ${products.data.length} godis, varav totalt ${inStock} sorter finns i lager`;
     }
 
     //Sort products alphabetically
