@@ -280,6 +280,11 @@ getAllProducts()
         </div>
       `;
 
+      const purchaseButton = card.querySelector<HTMLButtonElement>(".btn-primary");
+      if (product.stock_quantity === null) {
+        purchaseButton!.classList.add("disabled");
+      };
+
       const saleEl = card.querySelector<HTMLParagraphElement>(".card-sale");
       saleEl!.innerText = product.on_sale === true
       ? "Nedsatt pris, passa på!"
@@ -289,7 +294,6 @@ getAllProducts()
 
       container?.appendChild(card);
 
-      const purchaseButton = card.querySelector<HTMLButtonElement>(".btn-primary");
       purchaseButton?.addEventListener("click", () => {
         addCart(product);
       });
