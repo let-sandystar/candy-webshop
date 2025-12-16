@@ -272,7 +272,8 @@ getAllProducts()
         <div class="card-body">
           <h5 class="card-title">${product.name}</h5>
           <p class="card-price">${product.price}kr/skopa</p>
-          <p class="card-sale">${product.on_sale}</p>
+          <p class="card-sale"></p>
+          <p id="card-stock" class="d-none">T</p>
         </div>
         <div class="card-footer">
           <button class="btn btn-primary">Köp</button>
@@ -280,9 +281,15 @@ getAllProducts()
         </div>
       `;
 
+      const stockEl = card.querySelector<HTMLParagraphElement>("#card-stock");
       const purchaseButton = card.querySelector<HTMLButtonElement>(".btn-primary");
       if (product.stock_quantity === null) {
         purchaseButton!.classList.add("disabled");
+        stockEl!.innerText = "Tyvvärr, slut i lager";
+        stockEl!.classList.remove("d-none");
+        stockEl!.classList.add("fst-italic");
+      } else {
+        stockEl!.classList.add("d-none");
       };
 
       const saleEl = card.querySelector<HTMLParagraphElement>(".card-sale");
