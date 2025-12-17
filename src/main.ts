@@ -98,7 +98,6 @@ function renderCart() {
     row.innerHTML = `
       <td>
         <img src="${BASE}${item.candy.images.thumbnail}" class="cart-item-img" alt="${item.candy.name}">
-        <div class="product-name">${item.candy.name}</div>
       </td>
       <td class="text-center">
         <div class="cart-quantity-wrapper">
@@ -248,8 +247,10 @@ checkoutBtn?.addEventListener("click", () => {
 //Close window
 closeCartBtn?.addEventListener("click", () =>
   closeWindow(cartSection));
-closeCheckoutBtn?.addEventListener("click", () =>
-  closeWindow(checkoutSection));
+closeCheckoutBtn?.addEventListener("click", () => {
+  closeWindow(checkoutSection);
+  carouselEl?.classList.remove("d-none");
+});
 //Cart logic ended
 
 //Render products, all and single logic starting here
